@@ -1,0 +1,18 @@
+.notFoundTitle
+{
+    color: #fb4d08;
+}
+
+.notFound
+{
+    color: #6D6D6D;    
+}
+
+.wrapper
+{
+    border: 1px solid;
+    margin: 10px 0px;
+    padding:10px 10px 15px 50px;
+    width:80%;
+    color: #D8000C;
+}
