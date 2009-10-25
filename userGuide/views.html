@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rel="icon" href="/logikitframework/logikitPublic/favicon.ico" />
+<title>Views : Logikit::Framework User Guide</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="css/default.css" rel="stylesheet" type="text/css" />
+<link href="css/logikit.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" language="javascript" charset="utf-8" src="javascript/jquery.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="menu.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="scripts/shCore.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="scripts/shBrushJScript.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="scripts/shBrushPhp.js"></script>
+
+<link type="text/css" rel="stylesheet" href="styles/shCore.css"/>
+<link type="text/css" rel="stylesheet" href="styles/shThemeDefault.css"/>
+<script type="text/javascript">
+	SyntaxHighlighter.config.clipboardSwf = 'scripts/clipboard.swf';
+	SyntaxHighlighter.all();
+</script>
+</head>
+<body>
+	<div id="nav" name="nav" class="nav"><script>
+	displayMenu();</script></div>
+<div id="wrapper">
+<!-- start header -->
+<div id="header">
+	<div id="logo">
+		<h1><a href="#">Logikit::framework</a></h1>
+		
+		<h2>"Cute!"</h2>
+	</div>
+	<div id="menu">
+		<ul>
+			
+			<li class="topLinks"><a href="javascript:;" onclick="$('#nav').toggle('slow');"><b>Table of Contents</b></a></li>
+			<li class="topLinks"><a href="http://framework.logikit.net">Logikit::Framework</a></li>
+			<li class="topLinks"><a href="http://docs.logikit.net">Online Documents</a></li>
+		</ul>
+	</div>
+</div>
+<!-- end header -->
+</div>
+
+<!-- start page -->
+<div id="page">
+	<!-- start content -->
+	<div id="logikitContent">
+		<div class="instructions">
+
+<h2>Views</h2>
+
+<p>A <b>view</b> is simply a web page fragment, like a header, footer, sidebar, etc.</p><p>
+Views are never called directly, they must be loaded by a <a href="controllers.html" title="controllers">controller</a>. Remember that in an MVC framework, the <a href="controllers.html" title="controllers">controller</a> acts as the traffic cop, so it is responsible for fetching a particular view. If you have not read the Controllers page you should do so before continuing.
+</p><p>
+Using the example <a href="controllers.html" title="controllers">controller</a> you created in the controller page, let's add a view to it.
+</p><br/><br/>
+<h2>Creating a View</h2>
+<p><div class="info">View files are found in application/view/{<font color="red">controllerName</font>}/ folder.</div></p>
+where {<font color="red">controllerName</font>} is the respective name of your controller. So, if you will add a view with the name <span class="uriPath">index.php</span>, to be used together with <span class="uriPath">Blog</span> controller, the view path would be:
+<div class="uri">application/view/Blog/index.php</div>
+<div class="warning">If you are not using <a href="generator.html" title="generator">the generator</a>, you will need to create respective view folders (<b>Blog</b> in our case) manually.</div>
+</p><p>So let's get it done:
+<ul>
+<li>Navigate to application/view/ folder and create a new folder named <b>Blog</b>.
+</li>
+<li>Open your text editor, create an empty file and put this in it:
+<pre class="brush: php;">
+<h1>Welcome to my Blog!</h1>
+</pre>
+then save it with the name "index.php" under <span class="uriPath">application/views/Blog/</span> folder.
+</li> 
+</ul></p><br/><br/>
+<h2>Loading a view</h2><p>
+To load a particular view file you will use the following function:
+<pre class="brush: php;">
+	$this->load->view('name');
+</pre>Where <b>name</b> is the name of your view file.
+<div class="info">Do not add <b>.php</b> when loading a view, as it is automatically added.</div>
+Now, open the controller file you made earlier called <b>Blog.php</b>, and replace the <b>echo</b> statement with the view loading function and remove the <b>exit</b> statement so it will look like:
+<pre class="brush: php;">
+	public function index()
+	{
+		$this->load->view('index');
+	}
+</pre>
+If you visit the your site using the URL you did earlier you should see your new view. The URL was similar to this:
+<div class="uri">example.com/<font color="red">blog</font>/</div>
+</p><br><br/>
+<h2>Adding Dynamic Data to the View</h2>
+<p>
+Data is passed from the controller to the view by way of an array or an object in the second parameter of the view loading function. Here is an example using an array:	
+<pre class="brush: php;">
+$data = array(
+               'title' => 'My Title',
+               'heading' => 'My Heading',
+               'message' => 'My Message'
+          );
+	  
+$this->load->view('index', $data);
+</pre>
+And here is an example using an object:
+<pre class="brush: php;">
+$data = new Someclass();
+
+$this->load->view('index', $data);	
+</pre>
+<div class="info">If you use an object, the class variables will be turned into array elements.</div>
+Let's try it with your controller file. Open it and add this code:
+<pre class="brush: php;">
+	public function index()
+	{
+		$data = array();
+		
+		$data['heading'] = "My Heading";
+		$data['message'] = "My Message";
+		
+		$this->load->view('index', $data);
+	}
+</pre>
+Now open your view file and change the text to variables that correspond to the array keys in your data:
+<pre class="brush: php;">
+	&lt;h1>&lt;?php echo $heading; ?>&lt;/h1>
+	&lt;p>&lt;?php echo $message; ?>&lt;/p>
+</pre>
+Then load the page at the URL you've been using and you should see the variables replaced.
+</p><br/><br/>
+<h2>Creating Loops</h2>
+<p>
+	The data array you pass to your view files is not limited to simple variables. You can pass multi dimensional arrays, which can be looped to generate multiple rows. <br/>
+	For example, if you pull data from your database it will typically be in the form of a multi-dimensional array.
+</p><p>
+Here's a simple example. Add this to your controller:
+<pre class="brush: php;">
+	public function index()
+	{
+		$data = array();
+		
+		$data['todo_list'] = array('Clean House', 'Call Mom', 'Run Errands');
+
+		$data['heading'] = "My Heading";
+		$data['message'] = "My Message";
+		
+		$this->load->view('index', $data);
+	}
+</pre>
+Now open your view file and create a loop:
+<pre class="brush: php;">
+	&lt;h1>&lt;?php echo $heading; ?>&lt;/h1>
+	&lt;p>&lt;?php echo $message; ?>&lt;/p>
+	&lt;ul>
+	&lt;?php foreach($todo_list as $item):?>
+		&lt;li>&lt;?php echo $item;?>&lt;/li>
+	&lt;?php endforeach;?>
+	&lt;/ul>
+</pre>
+</p>
+
+</div>
+		</div>
+		
+	</div>
+	<!-- end content -->
+
+	<div style="clear: both;">&nbsp;</div>
+</div>
+<div id="footer">
+<p>&copy;2009 <a href="http://www.logikit.net" title="Logikit">Logikit</a>. Powered by <a href="http://framework.logikit.net" title="Logikit::Framework">Logikit::Framework</a></p>
+</div>
+
+</body>
+</html>

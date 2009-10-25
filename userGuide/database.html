@@ -1,0 +1,299 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rel="icon" href="/logikitframework/logikitPublic/favicon.ico" />
+<title>Database Class : Logikit::Framework User Guide</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="css/default.css" rel="stylesheet" type="text/css" />
+<link href="css/logikit.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" language="javascript" charset="utf-8" src="javascript/jquery.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="menu.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="scripts/shCore.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="scripts/shBrushJScript.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="scripts/shBrushPhp.js"></script>
+
+<link type="text/css" rel="stylesheet" href="styles/shCore.css"/>
+<link type="text/css" rel="stylesheet" href="styles/shThemeDefault.css"/>
+<script type="text/javascript">
+	SyntaxHighlighter.config.clipboardSwf = 'scripts/clipboard.swf';
+	SyntaxHighlighter.all();
+</script>
+</head>
+<body>
+	<div id="nav" name="nav" class="nav"><script>
+	displayMenu();</script></div>
+<div id="wrapper">
+<!-- start header -->
+<div id="header">
+	<div id="logo">
+		<h1><a href="#">Logikit::framework</a></h1>
+		
+		<h2>"Cute!"</h2>
+	</div>
+	<div id="menu">
+		<ul>
+			
+			<li class="topLinks"><a href="javascript:;" onclick="$('#nav').toggle('slow');"><b>Table of Contents</b></a></li>
+			<li class="topLinks"><a href="http://framework.logikit.net">Logikit::Framework</a></li>
+			<li class="topLinks"><a href="http://docs.logikit.net">Online Documents</a></li>
+		</ul>
+	</div>
+</div>
+<!-- end header -->
+</div>
+
+<!-- start page -->
+<div id="page">
+	<!-- start content -->
+	<div id="logikitContent">
+		<div class="instructions">
+
+<h2>Database Class</h2>
+<p>
+	LF Database Class <b>(LogikitModel)</b> is a simplified application of the <a href="http://en.wikipedia.org/wiki/Active_record_pattern" title="Active Record Pattern" target="_new">Active Record Pattern</a>, providing a very quick an easy way for database access.
+</p>
+<p>
+	
+LogikitModel uses PHP Data Objects (<a href="http://www.php.net/pdo" title="PDO" target="_new">PDO</a>)
+		as a data-access abstraction layer and extends PDO object.<br />
+		PDO supports a variety of database management systems including (but not limited to) MySQL, PostgreSQL, Oracle, ODBC, SQLite and Microsoft SQL.
+		
+</p>
+
+<p>
+	
+LogikitModel is an <a href="http://www.php.net/manual/en/language.oop5.abstract.php" title="Class Abstraction" target="_new">abstract class</a>.
+All LF models <b>must extend</b> LogikitModel. 
+</p><br/><br/>
+<h2>Database Configuration</h2>
+<p>
+	
+	<ul>
+		<li>Open the application/config/database.ini file with a text editor and change the database settings in the "development" area.
+		<pre class="brush: php;">[development]
+driver = mysql
+host = localhost
+;port = 3306
+schema = framework
+username = root
+password = mypass
+</pre>where "schema" will be your database name.
+		</li>
+		<li> Open the application/config/config.php file with a text editor and change the line
+		<pre class="brush: php;">define("DB_ENVIRONMENT" , 'none');</pre> to
+		<pre class="brush: php;">define("DB_ENVIRONMENT" , 'development');</pre>
+		</li>
+	</ul>
+	
+</p>
+
+<p>LF permits use of different database settings for development, testing and production purposes. You may switch to the "test" settings by changing the <b>DB_ENVIRONMENT</b> directive to <b>'test'</b> in config.php file.
+</p><br/><br/>
+<h2>Connecting to Your Database</h2>
+<p>
+The connection will be set up automatically when you will initialize your model.
+</p><br/><br/>
+<h2>Anatomy of a Model File</h2>
+<p><div class="info">Each model represents the respective table name in the database.</div>
+	if your database table name is <b>entries</b>, your model will be named <b>EntriesModel</b>
+	<div class="info">Models require a <b>primary key/integer/auto increment</b> field called <b>"id"</b>.</div>
+	<div class="info">Models are stored in <b>application/model</b> folder.</div>
+	Open an empty file in your text editor and save it as <b>EntriesModel.php</b> in your <b>application/model</b> folder.
+	<div class="info">As all models extend LogikitModel which itself extends <a href="http://www.php.net/manual/en/class.pdo.php" title="PDO Class" target="_new">PDO Class</a>, every model class inherits all PDO capabilities.</div>
+	A typical model will be as follows:
+<pre class="brush: php;">
+class EntriesModel extends LogikitModel
+{
+    
+}	
+</pre>
+put the content above in your newly created <b>EntriesModel.php</b> file and save it. Your model is ready.
+</p><br/><br/>
+<h2>Loading a Model</h2>
+<p>
+Your models will typically be loaded and called from within your <a href="controllers" title="controllers">controller</a> functions. To load a model you will use the following function:
+<pre class="brush: php;">
+$this->load->model('ModelName');
+</pre>
+If you model is located in a sub-folder, include the relative path from your models folder. For example, if you have a model located at <span class="uriPath">application/model/Blog/Queries.php</span> you will load it using:
+<pre class="brush: php;">
+$this->load->model('Blog/Queries');
+</pre>
+Once loaded, you will access your model functions using an object with the same name as your class:
+<pre class="brush: php;">
+$this->load->model('ModelName');
+
+$this->ModelName->function(); 
+</pre>
+Here is an example of a controller, that loads a model, then serves a view:
+<pre class="brush: php;">
+class Blog extends LogikitController
+{
+
+    public function index()
+    {
+		$data = array();
+    
+        $this->load->model('EntriesModel');
+
+        $data['query'] = $this->EntriesModel->getLastTenEntries();
+
+        $this->load->view('index', $data);
+    }
+}
+</pre>
+</p><br/><br/><h2>Running Queries</h2>
+<p><ul><li>
+	<h3>query() Method</h3>
+	Method inherited from PDO Class<br/>
+			<pre class="brush: php;">
+				$this->EntriesModel->query("UPDATE authors SET name = 'Poe' WHERE id = '1'");
+			</pre>
+			will update the name field as "Poe" in the row with id = <b>1</b></li></ul>
+	
+</p>
+<br/><br/>
+
+<h2>Retrieving Data</h2>
+<p>
+	<ul>
+		<li>
+			<h3>result() Method</h3>
+			<pre class="brush: php;">
+				$result = $this->EntriesModel->result("SELECT * FROM authors ORDER BY name");
+			</pre>
+			will run the query and return the result in an <b>array</b>.
+		</li>
+		
+		
+		<li>
+			<h3>getRow() Method</h3>
+			Similar to result(), with the differenct that getRow() runs the query with <b>LIMIT 1</b>.
+			<pre class="brush: php;">
+				$row = $this->EntriesModel->result("SELECT * FROM authors ORDER BY name");
+			</pre>
+			will retrieve the first author in alpabetical order as an <b>array</b>.
+		</li>
+		
+		<li>
+			<h3>getById() Method</h3>
+			<pre class="brush: php;">
+				$row = $this->EntriesModel->getById($id);
+			</pre>
+			will retrieve the row with id field = <b>$id</b> as an <b>array</b>.
+		</li>
+		
+		<li>
+			<h3>fetchAll() Method</h3>
+			<pre class="brush: php;">
+				$row = $this->EntriesModel->fetchAll();
+			</pre>
+			will retrieve the whole table as an <b>array</b>.
+			
+			<pre class="brush: php;">
+				$row = $this->EntriesModel->fetchAll("id > 10");
+			</pre>
+			will retrieve the rows with id > 10 as an <b>array</b>.
+			
+			<pre class="brush: php;">
+				$row = $this->EntriesModel->fetchAll("id > 10" , 'title');
+			</pre>
+			will retrieve the rows with id > 10, ordered by <b>title</b> as an <b>array</b>.
+			
+			<pre class="brush: php;">
+				$row = $this->EntriesModel->fetchAll("id > 10" , 'title' , 12);
+			</pre>
+			will retrieve the first 12 rows with id > 10, ordered by <b>title</b> as an <b>array</b>.
+			
+			<pre class="brush: php;">
+				$row = $this->EntriesModel->fetchAll("id > 10" , 'title' , 12 , 17);
+			</pre>
+			will retrieve the 12 rows starting by 17th row of the result set, with id > 10, ordered by <b>title</b> as an <b>array</b>.
+		</li>
+
+	</ul>
+</p><br/><br/>
+
+<h2>Inserting and Updating Data</h2>
+<p><div class="info">LogikitModel uses <b>save()</b> method for both INSERT and UPDATE operations. </div>
+To save some data, we need to populate a dataset first. This is done using:
+<ul><li><h3>populate() Method</h3></li></ul>
+<pre class="brush: php;">
+$recordSet = array('name' => 'Edgar' , 'title' => 'genius' , 'age' => '40');
+$this->EntriesModel->populate(recordSet);
+</pre>
+will populate the record set.<br/><br/>
+<ul><li><h3>save() Method</h3></li></ul>
+Saves last populated recordset to the table.<br/>
+<div class="info">If the record set has a key named <b>"id"</b> , save() method will UPDATE the row with this id, with the record set content. Else, it will INSERT.</div>
+<pre class="brush: php;">
+$recordSet = array('name' => 'Edgar' , 'title' => 'genius' , 'age' => '40');
+$this->EntriesModel->populate(recordSet);
+$insertId = $this->EntriesModel->save();
+</pre>
+will add a new record and return the last insert id.
+<pre class="brush: php;">
+$recordSet = array('id' => '1' , 'name' => 'Edgar' , 'title' => 'genius' , 'age' => '40');
+$this->EntriesModel->populate(recordSet);
+$this->EntriesModel->save();
+</pre>will update the row with <b>id = 1</b>.
+<br/><br/>
+<ul><li><h3>lastInsertId() Method</h3></li></ul>
+PDO's lastInsertId() method.
+<pre class="brush: php;">
+$insertId = $this->EntriesModel->lastInsertId();
+</pre>will retrieve last insert id.
+</p><br/><br/>
+
+<h2>Deleting Data</h2>
+<p>
+	<ul><li><h3>delete() Method</h3></li></ul>
+<pre class="brush: php;">
+	$this->EntriesModel->delete(4);
+</pre>will delete the row with <b>id = 4</b>.
+</p><br/><br/>
+
+<h2>Getting Information About the Database Structure</h2>
+<p>
+	<ul><li><h3>tables() Method</h3></li>
+<pre class="brush: php;">
+	$tables = $this->EntriesModel->tables();
+</pre>will return the table names in the database in an <b>array</b>.
+<br/><br/>
+	<li><h3>tableExists() Method</h3></li>
+	Checks if a table with the given name is present in the database.
+<pre class="brush: php;">
+	$this->EntriesModel->tableExists('authors');
+</pre>will return TRUE or FALSE.
+<br/><br/>
+<li><h3>columns() Method</h3></li>
+<pre class="brush: php;">
+	$tables = $this->EntriesModel->columns();
+</pre>will return the column names in the <b>authors table</b> in an <b>array</b>.
+
+<li><h3>getType() Method</h3></li>
+<pre class="brush: php;">
+	$tables = $this->EntriesModel->getType('name');
+</pre>will return the type of <b>names</b>.
+<li><h3>getLen() Method</h3></li>
+<pre class="brush: php;">
+	$tables = $this->EntriesModel->getLen('name');
+</pre>will return the length of <b>names</b>.
+
+	</ul>
+</p>
+		</div>
+		
+	</div>
+	<!-- end content -->
+
+	<div style="clear: both;">&nbsp;</div>
+</div>
+<div id="footer">
+<p>&copy;2009 <a href="http://www.logikit.net" title="Logikit">Logikit</a>. Powered by <a href="http://framework.logikit.net" title="Logikit::Framework">Logikit::Framework</a></p>
+</div>
+
+</body>
+</html>

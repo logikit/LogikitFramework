@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rel="icon" href="/logikitframework/logikitPublic/favicon.ico" />
+<title>Model-View-Controller : Logikit::Framework User Guide</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="css/default.css" rel="stylesheet" type="text/css" />
+<link href="css/logikit.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" language="javascript" charset="utf-8" src="javascript/jquery.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="menu.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="scripts/shCore.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="scripts/shBrushJScript.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="scripts/shBrushPhp.js"></script>
+
+<link type="text/css" rel="stylesheet" href="styles/shCore.css"/>
+<link type="text/css" rel="stylesheet" href="styles/shThemeDefault.css"/>
+<script type="text/javascript">
+	SyntaxHighlighter.config.clipboardSwf = 'scripts/clipboard.swf';
+	SyntaxHighlighter.all();
+</script>
+</head>
+<body>
+	<div id="nav" name="nav" class="nav"><script>
+	displayMenu();</script></div>
+<div id="wrapper">
+<!-- start header -->
+<div id="header">
+	<div id="logo">
+		<h1><a href="#">Logikit::framework</a></h1>
+		
+		<h2>"Cute!"</h2>
+	</div>
+	<div id="menu">
+		<ul>
+			
+			<li class="topLinks"><a href="javascript:;" onclick="$('#nav').toggle('slow');"><b>Table of Contents</b></a></li>
+			<li class="topLinks"><a href="http://framework.logikit.net">Logikit::Framework</a></li>
+			<li class="topLinks"><a href="http://docs.logikit.net">Online Documents</a></li>
+		</ul>
+	</div>
+</div>
+<!-- end header -->
+</div>
+
+<!-- start page -->
+<div id="page">
+	<!-- start content -->
+	<div id="logikitContent">
+		<div class="instructions">
+
+<h2>Model-View-Controller</h2>
+
+<p>LF is based on the <a href="http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller" title="MVC" target="_new">Model-View-Controller</a> development pattern. MVC is a software approach that separates application logic from presentation. In practice, it permits your web pages to contain minimal scripting since the presentation is separate from the PHP scripting.
+<ul><li>
+</li><li>The <b>Model</b> represents your data structures. Typically your model classes will contain functions that help you retrieve, insert, and update information in your database.
+</li><li>The <b>View is</b> the information that is being presented to a user. A View will normally be a web page, but in CodeIgniter, a view can also be a page fragment like a header or footer. It can also be an RSS page, or any other type of "page".
+</li><li>The <b>Controller</b> serves as an intermediary between the Model, the View, and any other resources needed to process the HTTP request and generate a web page.
+</li></ul>
+</p>
+
+<p><ul><li>As form handling and validation make essential parts of modern web-based development, LF also provides an optional way to keep the <b>form design</b> and <b>form validation</b> logic separate from the rest of the application.<br/>
+The programmer may <b>define</b> the forms, using existing form components or extending the form class keeping the source code even more clearer. 
+</li></ul></p>
+
+		</div>
+		
+	</div>
+	<!-- end content -->
+
+	<div style="clear: both;">&nbsp;</div>
+</div>
+<div id="footer">
+<p>&copy;2009 <a href="http://www.logikit.net" title="Logikit">Logikit</a>. Powered by <a href="http://framework.logikit.net" title="Logikit::Framework">Logikit::Framework</a></p>
+</div>
+
+</body>
+</html>

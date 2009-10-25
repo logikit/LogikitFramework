@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rel="icon" href="/logikitframework/logikitPublic/favicon.ico" />
+<title>Creating Your Own Libraries : Logikit::Framework User Guide</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="css/default.css" rel="stylesheet" type="text/css" />
+<link href="css/logikit.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" language="javascript" charset="utf-8" src="javascript/jquery.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="menu.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="scripts/shCore.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="scripts/shBrushJScript.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="scripts/shBrushPhp.js"></script>
+
+<link type="text/css" rel="stylesheet" href="styles/shCore.css"/>
+<link type="text/css" rel="stylesheet" href="styles/shThemeDefault.css"/>
+<script type="text/javascript">
+	SyntaxHighlighter.config.clipboardSwf = 'scripts/clipboard.swf';
+	SyntaxHighlighter.all();
+</script>
+</head>
+<body>
+	<div id="nav" name="nav" class="nav"><script>
+	displayMenu();</script></div>
+<div id="wrapper">
+<!-- start header -->
+<div id="header">
+	<div id="logo">
+		<h1><a href="#">Logikit::framework</a></h1>
+		
+		<h2>"Cute!"</h2>
+	</div>
+	<div id="menu">
+		<ul>
+			
+			<li class="topLinks"><a href="javascript:;" onclick="$('#nav').toggle('slow');"><b>Table of Contents</b></a></li>
+			<li class="topLinks"><a href="http://framework.logikit.net">Logikit::Framework</a></li>
+			<li class="topLinks"><a href="http://docs.logikit.net">Online Documents</a></li>
+		</ul>
+	</div>
+</div>
+<!-- end header -->
+</div>
+
+<!-- start page -->
+<div id="page">
+	<!-- start content -->
+	<div id="logikitContent">
+		<div class="instructions">
+
+<h2>Creating Your Own Libraries</h2>
+
+<p>
+LF is very flexible that you could import any existing class into the system.
+<div class="info">The path for your own libraries is <b>application/library</b></div>
+To do that:
+<ul>
+	<li>Copy the class under <span class="uriPath">application/library</span> folder</li>
+	<li>Arrange the name of the file and the class name so that they will be the same and will start with a capital letter.</li>
+</ul>
+</pre>
+Example:<br/>
+Let's assume you have a class called "tester_class" in a file called <b>tester.class.php</b>.<br/>
+<ul><li>
+Copy the file under <span class="uriPath">application/library</span> folder and rename it to <span class="uriPath">Tester.php</span>
+</li>
+	<li>Open the file with your text editor and rename the class to <span class="uriPath">Tester</span></li>
+</ul>
+Now you are ready to import the class:
+<pre class="brush: php;">
+$this->load->library('Tester');
+</pre>
+once loaded, you will use it within your controller as:
+<pre class="brush: php;">
+$this->Tester->testThis('someParam');
+</pre>
+</p>
+
+
+		</div>
+		
+	</div>
+	<!-- end content -->
+
+	<div style="clear: both;">&nbsp;</div>
+</div>
+<div id="footer">
+<p>&copy;2009 <a href="http://www.logikit.net" title="Logikit">Logikit</a>. Powered by <a href="http://framework.logikit.net" title="Logikit::Framework">Logikit::Framework</a></p>
+</div>
+
+</body>
+</html>

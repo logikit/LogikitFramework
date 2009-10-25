@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rel="icon" href="/logikitframework/logikitPublic/favicon.ico" />
+<title>Using the Application Generator : Logikit::Framework User Guide</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="css/default.css" rel="stylesheet" type="text/css" />
+<link href="css/logikit.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" language="javascript" charset="utf-8" src="javascript/jquery.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="menu.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="scripts/shCore.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="scripts/shBrushJScript.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="scripts/shBrushPhp.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="scripts/shBrushSql.js"></script>
+
+<link type="text/css" rel="stylesheet" href="styles/shCore.css"/>
+<link type="text/css" rel="stylesheet" href="styles/shThemeDefault.css"/>
+<script type="text/javascript">
+	SyntaxHighlighter.config.clipboardSwf = 'scripts/clipboard.swf';
+	SyntaxHighlighter.all();
+</script>
+</head>
+<body>
+	<div id="nav" name="nav" class="nav"><script>
+	displayMenu();</script></div>
+<div id="wrapper">
+<!-- start header -->
+<div id="header">
+	<div id="logo">
+		<h1><a href="#">Logikit::framework</a></h1>
+		
+		<h2>"Cute!"</h2>
+	</div>
+	<div id="menu">
+		<ul>
+			
+			<li class="topLinks"><a href="javascript:;" onclick="$('#nav').toggle('slow');"><b>Table of Contents</b></a></li>
+			<li class="topLinks"><a href="http://framework.logikit.net">Logikit::Framework</a></li>
+			<li class="topLinks"><a href="http://docs.logikit.net">Online Documents</a></li>
+		</ul>
+	</div>
+</div>
+<!-- end header -->
+</div>
+
+<!-- start page -->
+<div id="page">
+	<!-- start content -->
+	<div id="logikitContent">
+		<div class="instructions">
+
+<h2>What Is the Application Generator?</h2>
+
+<p>
+Application generator is a script that generates all necessary files (<a href="controllers" title="controllers">the controller</a>, <a href="models" title="models">the model</a>, <a href="forms" title="forms">the form</a>, <a href="validators" title="validators">the validator</a> and <a href="views" title="views">the view</a> files) with a single command.<br/>
+The generated application will already have ajax capabilities for validation, sorting and pagination issues.<br/>
+It will also recognize the field types and preset the relevant form components.<br><b>As as result:</b> You will have a full-fledged <b>CRUD</b> application ready to use.</p>
+<br/><br/>
+<h2>Example Application With the Application Generator</h2>
+<p><div class="warning">Application Generator assumes you already have <b>AJAX enabled</b> in your <a href="templates" title="templates">template file</a>.<br/>
+Examine <a href="enablingAjax" title="ajax">Using AJAX</a>  section to learn more.</div></p><br/><br/>
+<h2>Preparing the Database Tables</h2>
+Run the SQL statements below to create two sample tables:
+<pre class="brush: sql;">
+CREATE TABLE IF NOT EXISTS `entries` (
+  `id` int(11) unsigned NOT NULL auto_increment,
+  `title` char(100) NOT NULL,
+  `entry` longtext NOT NULL,
+  `date` date NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+	
+CREATE TABLE IF NOT EXISTS `comments` (
+  `id` int(11) unsigned NOT NULL auto_increment,
+  `name` char(100) NOT NULL,
+  `comment` longtext NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+</pre>
+</p>
+<h2>Setting the Environment</h2>
+We will start with a new LF installation. Once you'll have an idea on how it works, you may invoke the generator anytime you need it.
+<ul>
+	<li><a href="install.html" title="installation">install</a> LF.
+	<div class="warning">Do not forget to edit <b>application/system/config.php and application/system/database.ini</b> to fit your database settings.</div>
+	</li>
+	<li>Open a command line and switch to <b>your LF installation folder</b>.<br/>
+	Assuming your LF installation folder is <span class="uriPath">/var/www/framework/</span>:<br/><br/>
+	<div class="console">dev@logikit:~$ cd /var/www/framework</div>
+	</li>
+	<li>Make sure to have write permissions recursively for <b>application</b> folder:<br/><br/>
+	<div class="console">dev@logikit:/var/www/framework$ chmod -R 777 application</div>
+	</li>
+
+</ul>
+</p><br/><br/>
+<h2>Generating the Code</h2>
+<p><ul>
+	<li>Switch to <b>system</b> folder:<br/><br/>
+	<div class="console">dev@logikit:/var/www/framework$ cd system</div>
+	</li>
+	<li>Run the generator:<br/><br/>
+	<div class="console">dev@logikit:/var/www/framework/system$ ./generate.php</div>
+	</li>
+	</ul>If your webroot is /var/www on your localhost, you can see your application running
+	<div class="uri">http://localhost/framework/</div><br/>
+	Here's how it will look like:<br/><br/>
+	<div style="border:3px solid; width:638px"><img src="images/generator.png" alt="Generator Screenshot"/></div>
+</p>
+		</div>
+		
+	</div>
+	<!-- end content -->
+
+	<div style="clear: both;">&nbsp;</div>
+</div>
+<div id="footer">
+<p>&copy;2009 <a href="http://www.logikit.net" title="Logikit">Logikit</a>. Powered by <a href="http://framework.logikit.net" title="Logikit::Framework">Logikit::Framework</a></p>
+</div>
+
+</body>
+</html>

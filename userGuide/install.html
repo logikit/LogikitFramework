@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rel="icon" href="/logikitframework/logikitPublic/favicon.ico" />
+<title>Installing Logikit : Logikit::Framework User Guide</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="css/default.css" rel="stylesheet" type="text/css" />
+<link href="css/logikit.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" language="javascript" charset="utf-8" src="javascript/jquery.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="menu.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="scripts/shCore.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="scripts/shBrushJScript.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="scripts/shBrushPhp.js"></script>
+
+<link type="text/css" rel="stylesheet" href="styles/shCore.css"/>
+<link type="text/css" rel="stylesheet" href="styles/shThemeDefault.css"/>
+<script type="text/javascript">
+	SyntaxHighlighter.config.clipboardSwf = 'scripts/clipboard.swf';
+	SyntaxHighlighter.all();
+</script>
+</head>
+<body>
+	<div id="nav" name="nav" class="nav"><script>
+	displayMenu();</script></div>
+<div id="wrapper">
+<!-- start header -->
+<div id="header">
+	<div id="logo">
+		<h1><a href="#">Logikit::framework</a></h1>
+		
+		<h2>"Cute!"</h2>
+	</div>
+	<div id="menu">
+		<ul>
+			
+			<li class="topLinks"><a href="javascript:;" onclick="$('#nav').toggle('slow');"><b>Table of Contents</b></a></li>
+			<li class="topLinks"><a href="http://framework.logikit.net">Logikit::Framework</a></li>
+			<li class="topLinks"><a href="http://docs.logikit.net">Online Documents</a></li>
+		</ul>
+	</div>
+</div>
+<!-- end header -->
+</div>
+
+<!-- start page -->
+<div id="page">
+	<!-- start content -->
+	<div id="logikitContent">
+		<div class="instructions">
+<h2>Installation Instructions</h2>
+<p><ul>
+	<li>Unzip the package.</li>
+   <li>Upload the LF folders and files to your server.</li>
+   </ul></p><p><b>Optionally</b> , if you want to use a database:
+	<ul>
+		<li>Open the application/config/database.ini file with a text editor and change the database settings in the "development" area.
+		<pre class="brush: php;">[development]
+driver = mysql
+host = localhost
+;port = 3306
+schema = framework
+username = root
+password = mypass
+</pre>where "schema" will be your database name.
+		</li>
+		<li> Open the application/config/config.php file with a text editor and change the line
+		<pre class="brush: php;">define("DB_ENVIRONMENT" , 'none');</pre> to
+		<pre class="brush: php;">define("DB_ENVIRONMENT" , 'development');</pre>
+		</li>
+	</ul>
+	
+</p>
+<p><b>...and you are done!</b></p>
+<p>LF permits use of different database settings for development, testing and production purposes. You may switch to the "test" settings by changing the <b>DB_ENVIRONMENT</b> directive to <b>'test'</b> in config.php file.
+</p>
+
+<p>
+	If you are new to LF, feel free to ask questions at <a href="http://community.logikit.net" title="LF community pages">LF community pages</a>.
+
+</p>
+
+
+
+		</div>
+		
+	</div>
+	<!-- end content -->
+
+	<div style="clear: both;">&nbsp;</div>
+</div>
+<div id="footer">
+<p>&copy;2009 <a href="http://www.logikit.net" title="Logikit">Logikit</a>. Powered by <a href="http://framework.logikit.net" title="Logikit::Framework">Logikit::Framework</a></p>
+</div>
+
+</body>
+</html>

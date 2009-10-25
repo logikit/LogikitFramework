@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rel="icon" href="/logikitframework/logikitPublic/favicon.ico" />
+<title>Validation Class : Logikit::Framework User Guide</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="css/default.css" rel="stylesheet" type="text/css" />
+<link href="css/logikit.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" language="javascript" charset="utf-8" src="javascript/jquery.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="menu.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="scripts/shCore.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="scripts/shBrushJScript.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="scripts/shBrushPhp.js"></script>
+
+<link type="text/css" rel="stylesheet" href="styles/shCore.css"/>
+<link type="text/css" rel="stylesheet" href="styles/shThemeDefault.css"/>
+<script type="text/javascript">
+	SyntaxHighlighter.config.clipboardSwf = 'scripts/clipboard.swf';
+	SyntaxHighlighter.all();
+</script>
+</head>
+<body>
+	<div id="nav" name="nav" class="nav"><script>
+	displayMenu();</script></div>
+<div id="wrapper">
+<!-- start header -->
+<div id="header">
+	<div id="logo">
+		<h1><a href="#">Logikit::framework</a></h1>
+		
+		<h2>"Cute!"</h2>
+	</div>
+	<div id="menu">
+		<ul>
+			
+			<li class="topLinks"><a href="javascript:;" onclick="$('#nav').toggle('slow');"><b>Table of Contents</b></a></li>
+			<li class="topLinks"><a href="http://framework.logikit.net">Logikit::Framework</a></li>
+			<li class="topLinks"><a href="http://docs.logikit.net">Online Documents</a></li>
+		</ul>
+	</div>
+</div>
+<!-- end header -->
+</div>
+
+<!-- start page -->
+<div id="page">
+	<!-- start content -->
+	<div id="logikitContent">
+		<div class="instructions">
+<h2>Validation Class</h2>
+
+<p>
+Using LF, you are encouraged to keep the form validation logic seperated.	
+<div class="info">LF will look for the validatiors in <b>application/validator/{controller name}/</b> folder.</div>
+
+</p><br/><br/>
+<h2>Loading the Validator Class</h2>
+
+<p>
+	If your controller is Entries class in <b>application/controller/Entries.php</b> file:	
+	<pre class="brush: php;">
+		$this->load->validator('EditFormValidator');
+	</pre>
+	will load the file called <b>application/validator/Entries/EditFormValidator.php</b> and will load <b>EditFormValidator class.</b>
+</p><br/><br/>
+<h2>Anatomy of the Validator Class</h2>
+
+<p>
+	A typical validator class will look like:
+	<pre class="brush: php;">
+class EditFormValidator extends LogikitValidation
+{
+    public function __construct()
+    {
+        
+    }
+}
+	</pre><div class="info">Any Validator Class must extend LogikitValidation</div>
+
+</p><br/><br/>
+<h2>Using the Validator Class</h2>
+<p>
+Supposing you have some POST data, in our controller:
+<pre class="brush: php;">
+	public function validate()
+	{
+		$this->load->form('EditForm');
+		$this->load->validator('EditFormValidator');
+		
+		$validationResult = $this->EditFormValidator->validateForm($this->EditForm);
+		
+		if($validationResult['validationOverAll'] == TRUE)
+		{
+			//form is validated
+		}
+		else
+		{
+			//form is unvalidated. see what is wrong.
+			print_r(validationResult);
+		}
+	}	
+</pre></p>
+		
+	</div>
+	<!-- end content -->
+
+	<div style="clear: both;">&nbsp;</div>
+</div>
+<div id="footer">
+<p>&copy;2009 <a href="http://www.logikit.net" title="Logikit">Logikit</a>. Powered by <a href="http://framework.logikit.net" title="Logikit::Framework">Logikit::Framework</a></p>
+</div>
+
+</body>
+</html>

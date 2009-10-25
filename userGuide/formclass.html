@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rel="icon" href="/logikitframework/logikitPublic/favicon.ico" />
+<title>Form Class : Logikit::Framework User Guide</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="css/default.css" rel="stylesheet" type="text/css" />
+<link href="css/logikit.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" language="javascript" charset="utf-8" src="javascript/jquery.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="menu.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="scripts/shCore.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="scripts/shBrushJScript.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="scripts/shBrushPhp.js"></script>
+
+<link type="text/css" rel="stylesheet" href="styles/shCore.css"/>
+<link type="text/css" rel="stylesheet" href="styles/shThemeDefault.css"/>
+<script type="text/javascript">
+	SyntaxHighlighter.config.clipboardSwf = 'scripts/clipboard.swf';
+	SyntaxHighlighter.all();
+</script>
+</head>
+<body>
+	<div id="nav" name="nav" class="nav"><script>
+	displayMenu();</script></div>
+<div id="wrapper">
+<!-- start header -->
+<div id="header">
+	<div id="logo">
+		<h1><a href="#">Logikit::framework</a></h1>
+		
+		<h2>"Cute!"</h2>
+	</div>
+	<div id="menu">
+		<ul>
+			
+			<li class="topLinks"><a href="javascript:;" onclick="$('#nav').toggle('slow');"><b>Table of Contents</b></a></li>
+			<li class="topLinks"><a href="http://framework.logikit.net">Logikit::Framework</a></li>
+			<li class="topLinks"><a href="http://docs.logikit.net">Online Documents</a></li>
+		</ul>
+	</div>
+</div>
+<!-- end header -->
+</div>
+
+<!-- start page -->
+<div id="page">
+	<!-- start content -->
+	<div id="logikitContent">
+		<div class="instructions">
+<h2>Form Class</h2>
+
+<p>
+Using LF, you are encouraged to keep the form creation logic seperated from the rest of your code, as it leads both to a better application architecture and ease of <a href="validators.html" title="validation">validation</a>.	
+<div class="info">LF will look for the forms in <b>application/form/{controller name}/</b> folder.</div>
+
+</p><br/><br/>
+<h2>Loading the Form Class</h2>
+
+<p>
+	If your controller is Entries class in <b>application/controller/Entries.php</b> file:	
+	<pre class="brush: php;">
+		$this->load->form('EditForm');
+	</pre>
+	will load the file called <b>application/form/Entries/EditForm.php</b> and will load <b>EditForm class.</b>
+</p><br/><br/>
+<h2>Anatomy of the Form Class</h2>
+
+<p>
+	A typical form class will look like:
+	<pre class="brush: php;">
+class EditForm extends LogikitForm
+{
+    public function __construct()
+    {
+        
+		$this->addItem(array(
+				     'name' => 'id' ,
+				     'type' => 'hidden' ,
+				     'value' => NULL ,
+				     'validation' => array() ,
+				     'properties' => ''));
+			
+			
+		$this->addItem(array(
+					'name' => 'title' ,
+					'type' => 'textBox' ,
+					'value' => NULL ,
+					'validation' => array('notNull') ,
+					'properties' => 'class="textBox1"'));
+					
+		$this->addItem(array(
+					 'name' => 'submit1' ,
+					'type' => 'submit' ,
+					'value' => 'Go' ,
+					'validation' => NULL ,
+					'properties' => 'class="submit1"'));
+    }
+}
+	</pre><div class="info">Any Form Class must extend LogikitForm</div>
+	The example above describes a form with three components: A hidden field called <b>"id"</b> , a text field called <b>"title"</b> and a <b>submit</b> button.
+Let's have a closer look at them:
+	<pre class="brush: php;">
+		$this->addItem(array(
+					'name' => 'title' ,
+					'type' => 'textBox' ,
+					'value' => NULL ,
+					'validation' => array('notNull') ,
+					'properties' => 'class="textBox1"'));
+	</pre>This will add a form component that:
+	<ul><li>will be a <b>textbox</b></li>
+		<li>will be named as <b>"title"</b></li>
+		<li>will have initial value <b>"NULL"</b></li>
+		<li><b>must not</b> be empty when posted</li>
+		<li>which will use <b>.textBox1</b> CSS class.</li></ul>
+	<br/><br/>Prebuilt form components are:
+	<ul>
+		<li>textBox</li>
+		<li>textArea</li>
+		<li>submit</li>
+		<li>selectBox</li>
+		<li>file</li>
+		<li>radio</li>
+		<li>hidden</li>
+		<li>datePicker</li></ul>
+</p><br/><br/>
+<h2>Using the Form Class</h2>
+Now we have a description of a simple form. Let's get the code generated.
+In our controller:
+<pre class="brush: php;">
+	public function edit()
+	{
+		$viewData = array();
+		$this->load->form('EditForm');
+		$viewData['formItems'] = $this->EditForm->renderAll();
+		$this->load->view("edit" , $viewData);
+	
+	}
+</pre>then open our view edit.php:
+<pre class="brush: php;">
+&lt;?php echo formOpenMultipart('form1' , siteUri(getController() . '/processForm') , 'POST', 'onsubmit=""');
+echo $formItems['title'] . "&lt;br/>";
+echo $formItems['submit1'] . "&lt;br/>";
+echo $formItems['id'] . "&lt;br/>";
+formClose();
+?>
+</pre>and save it. Then call <span class="uriPath">http://lfInstallation/YourController/edit/</span> and you will see the generated form.
+</p><br/><br/><h2>Populating Form Values</h2>
+<p>Go back to the controller and change the function so it will look like below:
+<pre class="brush: php;">
+	public function edit()
+	{
+		$viewData = array();
+		$this->load->form('EditForm');
+		
+		$entry = array('id' => 2 , 'title' => 'My Book');
+		$this->EditForm->setValues($entry);
+		
+		$viewData['formItems'] = $this->EditForm->renderAll();
+		$this->load->view("edit" , $viewData);
+	
+	}
+</pre>and run it again.<br/><br/>You will use the validation data with <a href="validation.html" title="Validation">the Validation Class</a>
+</p>
+		
+	</div>
+	<!-- end content -->
+
+	<div style="clear: both;">&nbsp;</div>
+</div>
+<div id="footer">
+<p>&copy;2009 <a href="http://www.logikit.net" title="Logikit">Logikit</a>. Powered by <a href="http://framework.logikit.net" title="Logikit::Framework">Logikit::Framework</a></p>
+</div>
+
+</body>
+</html>

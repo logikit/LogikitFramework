@@ -1,0 +1,244 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rel="icon" href="/logikitframework/logikitPublic/favicon.ico" />
+<title>Controllers : Logikit::Framework User Guide</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="css/default.css" rel="stylesheet" type="text/css" />
+<link href="css/logikit.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" language="javascript" charset="utf-8" src="javascript/jquery.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="menu.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="scripts/shCore.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="scripts/shBrushJScript.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="scripts/shBrushPhp.js"></script>
+
+<link type="text/css" rel="stylesheet" href="styles/shCore.css"/>
+<link type="text/css" rel="stylesheet" href="styles/shThemeDefault.css"/>
+<script type="text/javascript">
+	SyntaxHighlighter.config.clipboardSwf = 'scripts/clipboard.swf';
+	SyntaxHighlighter.all();
+</script>
+</head>
+<body>
+	<div id="nav" name="nav" class="nav"><script>
+	displayMenu();</script></div>
+<div id="wrapper">
+<!-- start header -->
+<div id="header">
+	<div id="logo">
+		<h1><a href="#">Logikit::framework</a></h1>
+		
+		<h2>"Cute!"</h2>
+	</div>
+	<div id="menu">
+		<ul>
+			
+			<li class="topLinks"><a href="javascript:;" onclick="$('#nav').toggle('slow');"><b>Table of Contents</b></a></li>
+			<li class="topLinks"><a href="http://framework.logikit.net">Logikit::Framework</a></li>
+			<li class="topLinks"><a href="http://docs.logikit.net">Online Documents</a></li>
+		</ul>
+	</div>
+</div>
+<!-- end header -->
+</div>
+
+<!-- start page -->
+<div id="page">
+	<!-- start content -->
+	<div id="logikitContent">
+		<div class="instructions">
+<h2>Controllers</h2>
+
+<p>Controllers are the heart of your application, as they determine how HTTP requests should be handled.</p>
+<p><ul>
+<li><a href="#what">What is a controller?</a></li>
+<li><a href="#helloworld">Hello World!</a></li>
+<li><a href="#functions">Functions</a></li>
+<li><a href="#segments">Passing URI Segments to Your Functions</a></li>
+<li><a href="#defaultcontroller">Defining a Default Controller</a></li>
+<li><a href="#privatefunctions">Private Functions</a></li>
+<li><a href="#subfolders">Organizing Your Controllers into Sub-folders</a></li></ul>
+</p>
+<a name="what"></a><h2>What is a controller?</h2>
+<p><div class="info">A Controller is simply a class file that is named in a way that can be associated with a URI.</div>
+	Consider this URI:
+	<div class="uri">example.com/blog/</div>
+	In the above example, CodeIgniter would attempt to find a controller named blog.php and load it.<br/>
+	<b>When a controller's name matches the first segment of a URI, it will be loaded.</b>
+</p><br/><br/>
+<a name="helloworld"></a><h2>Give it a try: Hello World!</h2>
+<p>Let's create a simple controller so you can see it in action. Using your text editor, create a file called blog.php, and put the following code in it:
+<pre class="brush: php;">
+&lt;?php
+class Blog extends LogikitController
+{
+	public function __construct()
+	{
+	    parent::__construct();
+	}
+	
+	public function index()
+	{
+		echo 'Hello World!';
+		exit;
+	}
+}
+?>
+</pre>
+Then save the file to your <span class="uriPath">application/controllers/</span> folder.
+<br /><br/>
+Now visit the your site using a URL similar to this:
+<div class="uri">example.com/blog/</div>
+If you did it right, you should see <b>Hello World!</b>.
+<br/><br/>
+<b>Note 1:</b> If you didn't add <span class="uriPath">exit;</span> in line 11 above, you should probably see a warning.<br>
+We will see why in the <a href="templates.html" title="Templates">templates</a> and <a href="views.html" title="Views">views</a> chapters.
+<br/><br/>
+<b>Note 2:</b> Class names must start with an uppercase letter. In other words, this is valid:
+<pre class="brush: php;">
+&lt;?php
+class Blog extends LogikitController
+{
+
+}
+?></pre>
+This is <b>not</b> valid:
+<pre class="brush: php;">
+&lt;?php
+class blog extends LogikitController
+{
+
+}
+?></pre>
+Also, always make sure your controller <b>extends</b> the parent controller class and <b>calls the constructor</b> so that it can inherit all its functions:
+<pre class="brush: php;">
+&lt;?php
+class Blog extends LogikitController
+{
+	public function __construct()
+	{
+	    parent::__construct();
+	}
+}
+?>
+</pre>
+</p><br/><br/>
+<a name="functions"></a><h2>Functions</h2>
+<p>In the above example the function name is <span class="uriPath">index()</span>. The "index" function is always loaded by default if the <b>second segment</b> of the URI is empty. Another way to show your "Hello World" message would be this:
+<div class="uri">example.com/blog/index/</div>
+Let's give it a try. Add a new function to your controller:
+<pre class="brush: php;">
+&lt;?php
+class Blog extends LogikitController
+{
+	public function __construct()
+	{
+	    parent::__construct();
+	}
+	
+	public function index()
+	{
+		echo 'Hello World!';
+		exit;
+	}
+	
+	public function comments()
+	{
+		echo 'Look at this!';
+	}
+}
+?>
+</pre>
+Now load the following URL to see the <b>comments</b> function:
+<div class="uri">example.com/blog/comments/</div>
+You should see your new message.
+</p><br/><br/>
+<a name="segments"></a><h2>Passing URI Segments to Your Functions</h2>
+<p>If your URI contains more then two segments they will be passed to your function as parameters.
+<br/><br/>
+For example, lets say you have a URI like this:
+<div class="uri">example.com/products/shoes/type/sandals/id/123</div>
+The parameters will be passed to your function using <span class="uriPath">getParameter()</span> function.
+<pre class="brush: php;">
+&lt;?php
+class Products extends LogikitController
+{
+	public function __construct()
+	{
+	    parent::__construct();
+	}
+	public function shoes()
+	{
+		echo getParameter('type') . '&lt;br/>';
+		echo getParameter('id');
+		exit;
+		/*
+		will return:
+		sandals
+		123
+		*/
+	}
+}
+?>
+</pre>
+</p>
+<a name="defaultcontroller"></a><h2>Defining a Default Controller</h2>
+<p>LF can be told to load a default controller when a URI is not present, as will be the case when only your site root URL is requested. To specify a default controller, <span class="uriPath">open your application/config/config.php</span> file and set this variable:
+<pre class="brush: php;">$defaultController = 'Blog';</pre>
+Where <span class="uriPath">Blog</span> is the name of the controller class you want used. If you now load your main index.php file without specifying any URI segments you'll see your Hello World message by default.
+</p><br/><br/>
+<a name="privatefunctions"></a><h2>Private Functions</h2>
+<p>Private functions cannot be accessed from outside the controller class.
+add the lines below to your code:
+<pre class="brush: php;">
+	private function _hiddenFeature()
+	{
+		//some code
+	}
+</pre>
+Trying to access it via the URL, like this
+<div class="uri">example.com/blog/_hiddenFeature/</div>
+<b>will not work.</b>
+</p><br/><br/>
+<a name="subfolders"></a><h2>Organizing Your Controllers into Sub-folders</h2>
+<p>
+If you are building a large application you might find it convenient to organize your controllers into sub-folders. LF permits you to do this.
+</p><p>
+Simply create folders within your application/controllers directory and place your controller classes within them.	
+
+<div class="info">You may create controller subfolders at any level.</div>
+Consider this URL:
+<div class="uri">example.com/categories/vehicles/<font color="red">cars</font>/details/id/12</div>
+LF will try to locate the controller with this order:
+<ul>
+	<li>controller/categories.php</li>
+	<li>controller/categories/vehicles.php</li>
+	<li>controller/categories/vehicles/cars.php</li>
+	<li>controller/categories/vehicles/cars/details.php</li>
+	<li>controller/categories/vehicles/cars/details/id.php</li>
+	<li>controller/categories/vehicles/cars/details/id/12.php</li>
+</ul>
+and if your controller is <span class="uriPath">controller/categories/vehicles/cars.php</span>, system will use <b>cars.php</b> as the controller, and will check if <b>details</b> is an action.
+</p><p>
+<div class="warning">For this reason, controller subfolders and controller files <b>must not</b> have the same name.</div></p>
+		</div>
+<div class="warning">If you will use controllers in subfolders, you must have the respective folder hierarchy for your views.</div></p>
+		</div>
+		For example, for a controller class called <b>List</b> in <div class="uri">controller/subsection/list.php</div>
+		the view files must be located in
+		<div class="uri">view/subsection/list/</div>
+		folder.</p>
+		
+	</div>
+	<!-- end content -->
+
+	<div style="clear: both;">&nbsp;</div>
+</div>
+<div id="footer">
+<p>&copy;2009 <a href="http://www.logikit.net" title="Logikit">Logikit</a>. Powered by <a href="http://framework.logikit.net" title="Logikit::Framework">Logikit::Framework</a></p>
+</div>
+
+</body>
+</html>

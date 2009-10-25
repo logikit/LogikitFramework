@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rel="icon" href="/logikitframework/logikitPublic/favicon.ico" />
+<title>Models : Logikit::Framework User Guide</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="css/default.css" rel="stylesheet" type="text/css" />
+<link href="css/logikit.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" language="javascript" charset="utf-8" src="javascript/jquery.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="menu.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="scripts/shCore.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="scripts/shBrushJScript.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="scripts/shBrushPhp.js"></script>
+
+<link type="text/css" rel="stylesheet" href="styles/shCore.css"/>
+<link type="text/css" rel="stylesheet" href="styles/shThemeDefault.css"/>
+<script type="text/javascript">
+	SyntaxHighlighter.config.clipboardSwf = 'scripts/clipboard.swf';
+	SyntaxHighlighter.all();
+</script>
+</head>
+<body>
+	<div id="nav" name="nav" class="nav"><script>
+	displayMenu();</script></div>
+<div id="wrapper">
+<!-- start header -->
+<div id="header">
+	<div id="logo">
+		<h1><a href="#">Logikit::framework</a></h1>
+		
+		<h2>"Cute!"</h2>
+	</div>
+	<div id="menu">
+		<ul>
+			
+			<li class="topLinks"><a href="javascript:;" onclick="$('#nav').toggle('slow');"><b>Table of Contents</b></a></li>
+			<li class="topLinks"><a href="http://framework.logikit.net">Logikit::Framework</a></li>
+			<li class="topLinks"><a href="http://docs.logikit.net">Online Documents</a></li>
+		</ul>
+	</div>
+</div>
+<!-- end header -->
+</div>
+
+<!-- start page -->
+<div id="page">
+	<!-- start content -->
+	<div id="logikitContent">
+		<div class="instructions">
+
+<h2>What is a Model?</h2>
+
+<p>Models are PHP classes that are designed to work with information in your database.
+</p><br/><br/>
+<h2>Anatomy of a Model</h2>
+
+<p>Model classes are stored in your application/model/ folder. They can be nested within sub-folders if you want this type of organization.
+</p><p>
+The basic prototype for a model class is this:
+<pre class="brush: php;">
+class ModelName extends LogikitModel
+{
+	public function __contruct()
+	{
+		parent::__contruct();
+	}
+    
+}
+</pre>
+Where <span class="uriPath">ModelName</span> is the name of your class. Class names <b>must</b> have the first letter capitalized. Make sure your class extends the base Model class.
+</p><p>
+The file name will be the same as your class name. For example, if your class is this:
+<pre class="brush: php;">
+class UserModel extends LogikitModel
+{
+	public function __contruct()
+	{
+		parent::__contruct();
+	}
+    
+}
+</pre>
+Your file will be this:
+<div class="uri">application/model/UserModel.php</div>
+</p><br/><br/>
+<h2>Loading a Model</h2>
+<p>
+Your models will typically be loaded and called from within your <a href="controllers" title="controllers">controller</a> functions. To load a model you will use the following function:
+<pre class="brush: php;">
+$this->load->model('ModelName');
+</pre>
+If you model is located in a sub-folder, include the relative path from your models folder. For example, if you have a model located at <span class="uriPath">application/model/Blog/QueryModel.php</span> you will load it using:
+<pre class="brush: php;">
+$this->load->model('Blog/QueryModel');
+</pre>
+Once loaded, you will access your model functions using an object with the same name as your class:
+<pre class="brush: php;">
+$this->load->model('ModelName');
+
+$this->ModelName->function(); 
+</pre>
+Here is an example of a controller, that loads a model, then serves a view:
+<pre class="brush: php;">
+class Blog extends LogikitController
+{
+
+    public function index()
+    {
+		$data = array();
+    
+        $this->load->model('BlogModel');
+
+        $data['query'] = $this->BlogModel->getLastTenEntries();
+
+        $this->load->view('index', $data);
+    }
+}
+</pre>
+</p><br/><br/>
+<h2>Auto-loading Models</h2>
+<p>
+If you find that you need a particular model globally throughout your application, you can tell LF to auto-load it during system initialization. This is done by opening the <span class="uriPath">application/config/autoload.php</span> file and adding the model to the autoload array.	
+</p><br/><br/>
+<p>
+	<div class="info">To learn about LF ORM (LogikitModel), have a look at the <a href="database.html" title="database">database class</a>.</div>
+</p>
+		</div>
+		
+	</div>
+	<!-- end content -->
+
+	<div style="clear: both;">&nbsp;</div>
+</div>
+<div id="footer">
+<p>&copy;2009 <a href="http://www.logikit.net" title="Logikit">Logikit</a>. Powered by <a href="http://framework.logikit.net" title="Logikit::Framework">Logikit::Framework</a></p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rel="icon" href="/logikitframework/logikitPublic/favicon.ico" />
+<title>Using AJAX : Logikit::Framework User Guide</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="css/default.css" rel="stylesheet" type="text/css" />
+<link href="css/logikit.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" language="javascript" charset="utf-8" src="javascript/jquery.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="menu.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="scripts/shCore.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="scripts/shBrushJScript.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="scripts/shBrushPhp.js"></script>
+
+<link type="text/css" rel="stylesheet" href="styles/shCore.css"/>
+<link type="text/css" rel="stylesheet" href="styles/shThemeDefault.css"/>
+<script type="text/javascript">
+	SyntaxHighlighter.config.clipboardSwf = 'scripts/clipboard.swf';
+	SyntaxHighlighter.all();
+</script>
+</head>
+<body>
+	<div id="nav" name="nav" class="nav"><script>
+	displayMenu();</script></div>
+<div id="wrapper">
+<!-- start header -->
+<div id="header">
+	<div id="logo">
+		<h1><a href="#">Logikit::framework</a></h1>
+		
+		<h2>"Cute!"</h2>
+	</div>
+	<div id="menu">
+		<ul>
+			
+			<li class="topLinks"><a href="javascript:;" onclick="$('#nav').toggle('slow');"><b>Table of Contents</b></a></li>
+			<li class="topLinks"><a href="http://framework.logikit.net">Logikit::Framework</a></li>
+			<li class="topLinks"><a href="http://docs.logikit.net">Online Documents</a></li>
+		</ul>
+	</div>
+</div>
+<!-- end header -->
+</div>
+
+<!-- start page -->
+<div id="page">
+	<!-- start content -->
+	<div id="logikitContent">
+		<div class="instructions">
+
+<h2>Using AJAX</h2>
+<p>
+LF has strong AJAX capabilities thanks to <a href="http://www.jquery.com" title="JQuery" target="new">JQuery</a> and
+<a href="ajax.html" title="ajax">LF AJAX helper</a>.</p><br/><br/>
+<h2>Loading Scripts into the Template File</h2>
+<p>
+To use AJAX features, let's go back to our template file <span class="uriPath">/application/template/main.php</span> and add
+add the a line just before closing the <b>&lt;head&gt;</b> tag:
+<pre class="brush: php;">
+&lt;?php echo headerScripts(); ?>
+&lt;/head>
+</pre>
+</p>
+and add another line right after the <b>&lt;body&gt;</b> field starts:
+<pre class="brush: php;">
+&lt;body>
+&lt;?php echo bodyCode(); ?>
+</pre>
+so our code will now look like:
+<pre class="brush: php;">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+&lt;html xmlns="http://www.w3.org/1999/xhtml">
+&lt;?php echo headerScripts(); ?>
+&lt;head>
+&lt;meta http-equiv="content-type" content="text/html; charset=utf-8" />
+&lt;title>Test page&lt;/title>
+&lt;meta name="keywords" content="" />
+&lt;meta name="description" content="" />
+&lt;link href="&lt;?php echo URLROOT; ?>css/default.css" rel="stylesheet" type="text/css" />
+&lt;/head>
+&lt;body>
+&lt;?php echo bodyCode(); ?>
+	Header comes here.
+	&lt;p>&lt;?php $this->renderView(); ?>&lt;/p>
+	Footer comes here.
+&lt;/body>
+&lt;/html>
+</pre>This will let LF generate the Javascript line to load JQuery javascript file and any other registered scripts and CSS files.<br/>
+If you will run the code and have a look at the <b>header</b> part, you will notice there are two new lines added:
+<pre class="brush: php;">
+&lt;script type="text/javascript" language="javascript" charset="utf-8" src="http://can/logikitframework/logikitPublic/javascript/jquery.js">&lt;/script>
+
+&lt;style type="text/css">@import "http://can/logikitframework/logikitPublic/css/logikit.css.php?urlRoot=http://can/logikitframework/";&lt;/style>
+</pre><div class="info">Once you take this step, the AJAX scripts will be auto-loaded throughout your project.</div>
+</p><br/><br/>
+<h2>Writing AJAX Callback Code</h2>
+<p>
+Open our controller <span class="uriPath">/application/controller/Blog.php</span> and load the ajax helper:
+<pre class="brush: php;">
+	$this->load->systemHelper('ajax');
+</pre>
+add a callback function which will be used to process our AJAX request:
+<pre class="brush: php;">
+	public function ajaxEcho()
+	{
+	    echo $_POST['parameter'];
+	    exit;
+	}
+</pre>
+<div class="warning">Do not forget to add <b>exit()</b> statement.</div>
+and call the AJAX helper function:
+<pre class="brush: php;">
+$data['ajaxLink'] = ajaxUpdateLink('testme' , 'test/ajaxEcho' , 'testDiv' , 'test string');
+</pre>
+so it will look like:
+<pre class="brush: php;">
+	public function index()
+	{
+		$this->load->systemHelper('ajax');
+		$data = array();
+		
+		$data['heading'] = "My Heading";
+		$data['message'] = "My Message";
+		
+		$data['ajaxLink'] = ajaxUpdateLink('test me' , 'test/ajaxEcho' , 'testDiv' , 'test string');
+		
+		$this->load->view('index', $data);
+	}
+	
+	public function ajaxEcho()
+	{
+	    echo $_POST['parameter'];
+	    exit;
+	}
+</pre></p><br/><br/>
+<h2>View File</h2>
+		<p>
+Now that we have everything in place, as a last thing, open our view file, place the AJAX link and add the Div to be updated.
+Our view file was something like the below:
+<pre class="brush: php;">
+&lt;h1><?php echo $heading; ?>&lt;/h1>
+&lt;p><?php echo $message; ?>&lt;/p>
+&lt;ul>
+&lt;?php foreach($todo_list as $item):?>
+	&lt;li>&lt;?php echo $item;?>&lt;/li>
+&lt;?php endforeach;?>
+&lt;/ul>
+</pre>
+
+We will add our AJAX link and the div to be updated:
+<pre class="brush: php;">
+&lt;?php echo $ajaxLink; ?>
+&lt;div id="testDiv">&lt;/div>	
+</pre>
+so now the content of the view file will be:
+<pre class="brush: php;">
+&lt;h1><?php echo $heading; ?>&lt;/h1>
+&lt;p><?php echo $message; ?>&lt;/p>
+&lt;ul>
+&lt;?php foreach($todo_list as $item):?>
+	&lt;li>&lt;?php echo $item;?>&lt;/li>
+&lt;?php endforeach;?>
+&lt;/ul>
+
+&lt;?php echo $ajaxLink; ?>
+&lt;div id="testDiv">&lt;/div>	
+</pre></p><br/><br/>
+		<h2>Summary</h2>
+		To use AJAX features within your code:
+		<ul>
+			<li>Add AJAX headers to the template header part,
+			<pre class="brush: php;">
+&lt;?php echo headerScripts(); ?>
+&lt;/head>
+</pre>and to the body part:
+<pre class="brush: php;">
+&lt;body>
+&lt;?php echo bodyCode(); ?>
+</pre>
+
+			</li>
+			<li>
+			In the controller, add your AJAX callback function
+				<pre class="brush: php;">	public function ajaxEcho()
+	{
+	    echo $_POST['parameter'];
+	    exit;
+	}</pre>then load the helper and generate AJAX link:
+	<pre class="brush: php;">
+		$this->load->systemHelper('ajax');
+	</pre>
+	<pre class="brush: php;">
+		$data['ajaxLink'] = ajaxUpdateLink('test me' , 'test/ajaxEcho' , 'testDiv' , 'test string');		
+	</pre>
+			</li>
+			<li>As a last step: Add the link and the Div to be updated to the view file:
+			<pre class="brush: php;">
+&lt;?php echo $ajaxLink; ?>
+&lt;div id="testDiv">&lt;/div>	
+</pre>
+			</li>
+		</ul>Now when you will refresh the page, you will see the link <b>test me</b> and when clicked, <b>"test string"</b> will appear right below.
+</div>
+	</div>
+	<!-- end content -->
+
+	<div style="clear: both;">&nbsp;</div>
+</div>
+<div id="footer">
+<p>&copy;2009 <a href="http://www.logikit.net" title="Logikit">Logikit</a>. Powered by <a href="http://framework.logikit.net" title="Logikit::Framework">Logikit::Framework</a></p>
+</div>
+
+</body>
+</html>

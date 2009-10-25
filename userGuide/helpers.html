@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rel="icon" href="/logikitframework/logikitPublic/favicon.ico" />
+<title>Helper Functions : Logikit::Framework User Guide</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="css/default.css" rel="stylesheet" type="text/css" />
+<link href="css/logikit.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" language="javascript" charset="utf-8" src="javascript/jquery.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="menu.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="scripts/shCore.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="scripts/shBrushJScript.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="scripts/shBrushPhp.js"></script>
+
+<link type="text/css" rel="stylesheet" href="styles/shCore.css"/>
+<link type="text/css" rel="stylesheet" href="styles/shThemeDefault.css"/>
+<script type="text/javascript">
+	SyntaxHighlighter.config.clipboardSwf = 'scripts/clipboard.swf';
+	SyntaxHighlighter.all();
+</script>
+</head>
+<body>
+	<div id="nav" name="nav" class="nav"><script>
+	displayMenu();</script></div>
+<div id="wrapper">
+<!-- start header -->
+<div id="header">
+	<div id="logo">
+		<h1><a href="#">Logikit::framework</a></h1>
+		
+		<h2>"Cute!"</h2>
+	</div>
+	<div id="menu">
+		<ul>
+			
+			<li class="topLinks"><a href="javascript:;" onclick="$('#nav').toggle('slow');"><b>Table of Contents</b></a></li>
+			<li class="topLinks"><a href="http://framework.logikit.net">Logikit::Framework</a></li>
+			<li class="topLinks"><a href="http://docs.logikit.net">Online Documents</a></li>
+		</ul>
+	</div>
+</div>
+<!-- end header -->
+</div>
+
+<!-- start page -->
+<div id="page">
+	<!-- start content -->
+	<div id="logikitContent">
+		<div class="instructions">
+
+<h2>Helper Functions</h2>
+
+<p>Helpers, as the name suggests, help you with tasks. Each helper file is simply a collection of functions in a particular category.</p>
+<p>
+Helpers are not written in an Object Oriented format. They are simple, procedural functions. Each helper function performs one specific task, with no dependence on other functions.	
+</p>
+<p>
+LF does not load Helper Files by default (though there are a few exceptions) so the first step in using a Helper is to load it. Once loaded, it becomes globally available in your <a href="controllers.html" title="controllers">controller</a> and <a href="view.html" title="view">views</a>.	
+</p><br/><br/>
+<h2>Loading a Helper</h2>
+<p>
+Loading a helper file is quite simple using the following function:
+<pre class="brush: php;">
+$this->load->systemHelper('name');	
+</pre>
+Where <b>name</b> is the file name of the helper, without the .php file extension.
+<br/>
+For example, to load the <span class="uriPath">Ajax Helper</span> file, which is named <b>ajax.php</b>, you would do this:
+<pre class="brush: php;">
+$this->load->systemHelper('ajax');
+</pre>
+A helper can be loaded anywhere within your controller functions (or even within your View files, although that's not a good practice), as long as you load it before you use it. You can load your helpers in your controller constructor so that they become available automatically in any function, or you can load a helper in a specific function that needs it.
+</p><br><br/>
+<h2>Auto-loading Helpers</h2>
+<p>
+If you find that you need a particular helper globally throughout your application, you can tell LF to auto-load it during system initialization. This is done by opening the <span class="uriPath">application/config/autoload.php</span> file and adding the helper to the autoload array.	
+</p>
+<br><br/>
+<h2>Using a Helper</h2>
+<p>
+Once you've loaded the Helper File containing the function you intend to use, you'll call it the way you would a standard PHP function.
+
+For example, to create a link using the <b>siteLink()</b> function in one of your view files you would do this:
+<pre class="brush: php;">
+&lt;?php echo siteLink('blog/comments', 'Click Here');?>
+</pre>
+</p>
+<br/><br/>
+<h2>Creating Your Own Helpers</h2>
+
+<p>Please read the section of the user guide that discusses <a href="creatingHelpers.html" title="Creating Helpers">how to create your own helpers</a>.
+</p>
+
+
+		</div>
+		
+	</div>
+	<!-- end content -->
+
+	<div style="clear: both;">&nbsp;</div>
+</div>
+<div id="footer">
+<p>&copy;2009 <a href="http://www.logikit.net" title="Logikit">Logikit</a>. Powered by <a href="http://framework.logikit.net" title="Logikit::Framework">Logikit::Framework</a></p>
+</div>
+
+</body>
+</html>
