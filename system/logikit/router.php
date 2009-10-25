@@ -1,30 +1,41 @@
 <?php
 
 $uri = getUri();
-
-$currentControllerData = findController();
-if(!isset($currentControllerData) || $currentControllerData == FALSE)
+if($uri[0] == NULL || $uri['0'] == '/')
 {
-    $currentController = '404';
+    $currentControllerData['segment'] = 0;
+    $currentControllerData['controllerName'] = 'Start';
+    $currentControllerData['classPath'] = 'Start';
+    $currentControllerData['path'] = APPLICATIONPATH . 'controller/Start.php';
+    $currentController = 'Start';
     $currentAction = 'index';
+    require_once($currentControllerData['path']);
 }
 else
 {
-    require_once($currentControllerData['path']);
-    $currentController = $currentControllerData['controllerName'];
-    $actionCandidateSegment = $currentControllerData['segment'] + 1;
-    
-    //is $uri[1] an action?
-    if(isset($uri[$actionCandidateSegment]) && isAction($currentController , $uri[$actionCandidateSegment]))
+    $currentControllerData = findController();
+    if(!isset($currentControllerData) || $currentControllerData == FALSE)
     {
-        $currentAction = $uri[$actionCandidateSegment];
+        $currentController = '404';
+        $currentAction = 'index';
     }
     else
     {
-        $currentAction = $defaultAction;
+        require_once($currentControllerData['path']);
+        $currentController = $currentControllerData['controllerName'];
+        $actionCandidateSegment = $currentControllerData['segment'] + 1;
+        
+        //is $uri[1] an action?
+        if(isset($uri[$actionCandidateSegment]) && isAction($currentController , $uri[$actionCandidateSegment]))
+        {
+            $currentAction = $uri[$actionCandidateSegment];
+        }
+        else
+        {
+            $currentAction = $defaultAction;
+        }
     }
 }
-
     if($currentController == '404')
     {
         $_SESSION['urlRoot'] = URLROOT;
