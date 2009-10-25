@@ -2,50 +2,47 @@
 
 $uri = getUri();
 
-$currentController = ucfirst(strtolower($uri[0]));
-//is $uri[0] a controller?
-if(isController($currentController))
-{
-    require_once(APPLICATIONPATH . 'controller/' . $currentController. '.php');
-    //is $uri[1] an action?
-    if(isset($uri[1]) && isAction($currentController , $uri[1]))
-    {
-        $currentAction = $uri[1];
-    }
-    elseif(!isset($uri[1]) || $uri[1] == '')
-    {
-        $currentAction = $defaultAction;
-    }
-    else
-    {
-        $currentController = '404';
-        $currentAction = 'index';
-    }
-
-}
-elseif(!isset($uri[0]) || $uri[0] == '')
-{
-    $currentController = $defaultController;
-    $currentAction = $defaultAction;
-}
-else
+$currentControllerData = findController();
+if(!isset($currentControllerData) || $currentControllerData == FALSE)
 {
     $currentController = '404';
     $currentAction = 'index';
 }
-    if($currentController != '404') require_once(APPLICATIONPATH . 'controller/' . $currentController. '.php');
+else
+{
+    require_once($currentControllerData['path']);
+    $currentController = $currentControllerData['controllerName'];
+    $actionCandidateSegment = $currentControllerData['segment'] + 1;
+    
+    //is $uri[1] an action?
+    if(isset($uri[$actionCandidateSegment]) && isAction($currentController , $uri[$actionCandidateSegment]))
+    {
+        $currentAction = $uri[$actionCandidateSegment];
+    }
     else
+    {
+        $currentAction = $defaultAction;
+    }
+}
+
+    if($currentController == '404')
     {
         $_SESSION['urlRoot'] = URLROOT;
         require_once(SYSTEMPATH . 'errorPages/404.php');
         exit;
     }
-    $$currentController = new $currentController();
+    
+    //the controller may be in a sub directory so:
+    
+    $controllerInit = basename($currentController);
+    
+    $$currentController = new $controllerInit();
     
     if(is_array($autoload)) $$currentController->autoload($autoload);
 
     if(!isAction($currentController , $currentAction)) die('Default action "' . $defaultAction . '" not defined in controller "' . $currentController . '".');
     
     $_SESSION['action'][0] = $currentAction;
+    
 /* End of file router.php 
    Location: ./system/logikit/router.php */

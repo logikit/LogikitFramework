@@ -57,7 +57,7 @@ require(SYSTEMPATH . 'logikit/hooks.php');
  * run the controller
  */
 
-$$currentController->load->registerExtension('controller' , $currentController);
+$$currentController->load->registerExtension('controller' , $currentControllerData['classPath']);
 
 /**
  * set template

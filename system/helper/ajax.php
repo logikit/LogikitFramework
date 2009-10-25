@@ -29,11 +29,11 @@
 // ------------------------------------------------------------------------
 
 /**
-* Generate ajax validation script
-*
-* @access       public
-* @param        string  formId
-* @return       boolean
+ * Generate ajax validation script
+ *
+ * @access       public
+ * @param        string  formId
+ * @return       boolean
 */
 
 function ajaxValidate($formId)
@@ -99,7 +99,7 @@ function loadPaginationScripts($start , $limit , $total , $orderBy = 'id' , $ord
             firstDisplay = 1;
             
             if(start <= 0) $('#paginatePrevious').hide(); else $('#paginatePrevious').show();
-            
+          
             if((parseInt(start) + parseInt(limit)) >= total) $('#paginateNext').hide(); else $('#paginateNext').show();
        }
      });
@@ -107,13 +107,13 @@ function loadPaginationScripts($start , $limit , $total , $orderBy = 'id' , $ord
     
     function getNext()
     {
-            start = start + limit;
+            start = parseInt(start) + parseInt(limit);
             getPaginatedData(start , limit);
     }
     
     function getPrevious()
     {
-            start = start - limit;
+            start = parseInt(start) - parseInt(limit);
             getPaginatedData(start , limit);
     }
     
@@ -147,6 +147,40 @@ function generateAjaxPaginator($limit , $recordCount)
     $content .= '<a id="paginateNext" href="javascript:getNext();">next</a>';
     
     return $content;
+}
+
+
+/**
+ * Update a div using AJAX
+ *
+ * @access       public
+ * @param   string text
+ * @param   string callback
+ * @param   string targetDomId
+ * @param   string param
+ * return   string
+ */
+
+function ajaxUpdateLink($text , $callback , $targetDomId , $param = "")
+{
+    addScript("
+    function logikitUpdateDiv(callback , targetDomId , param)
+    {
+        $.ajax({
+       type: \"POST\",
+       url: \"" .URLROOT . "\" + callback,
+       data: \"parameter=\" + param,
+       success: function(msg)
+       {
+            $('#' + targetDomId).empty();
+            $('#' + targetDomId).append(msg);
+       }
+     });
+    }");
+    
+    $returnStr = '<a href="javascript:;" onclick = "logikitUpdateDiv(\'' . $callback . '\' , \'' . $targetDomId . '\' , \'' .  $param . '\');">' . $text .'</a>';
+    
+    return $returnStr;
 }
 
 /* End of file ajax.php 

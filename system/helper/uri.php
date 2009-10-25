@@ -41,6 +41,32 @@ function getUri()
     return explode('/' , $pathInfo);
 }
 
+function findController()
+{
+    $result = array();
+    $testString = '';
+    $uri = getUri();
+    $segmentNum = sizeof($uri);
+    for($n = 0; $n < $segmentNum; $n++)
+    {
+        $controllerTest = $testString . ucfirst(strtolower($uri[$n])) . '.php';
+        if(is_file(APPLICATIONPATH . 'controller/' . $controllerTest))
+        {
+            $result['path'] = APPLICATIONPATH . 'controller/' . $controllerTest;
+            $result['segment'] = $n;
+            $result['controllerName'] = ucfirst(strtolower($uri[$n]));
+            $result['classPath'] = str_replace('.php' , '', $controllerTest);
+            return $result;
+        }
+        else
+        {
+            $testString .= $uri[$n] . '/';
+        }
+    }
+    
+    return FALSE;
+}
+
 /**
  * Check if the given string represents a controller
  *
