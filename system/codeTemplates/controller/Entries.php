@@ -92,7 +92,7 @@ class __CONTROLLER__ extends LogikitController
         $validationResult = $this->EditFormValidator->validateForm($this->EditForm);
         $validationResult['returnUrl'] = returnUrl('index');
         
-        if($validationResult['validationOverAll'] == true)
+        if($validationResult['validationOverAll'] == TRUE)
         {
             $this->load->model('__CONTROLLER__Model');
             $recordSet = array();

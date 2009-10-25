@@ -161,7 +161,7 @@ function generateAjaxPaginator($limit , $recordCount)
  * return   string
  */
 
-function ajaxUpdateLink($text , $callback , $targetDomId , $param = "")
+function ajaxUpdateLink($text , $callback , $targetDomId , $param = NULL)
 {
     addScript("
     function logikitUpdateDiv(callback , targetDomId , param)
