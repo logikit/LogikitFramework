@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rel="icon" href="/logikitframework/logikitPublic/favicon.ico" />
+<title>Five Minutes Blog Tutorial : Logikit::Framework User Guide</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="css/default.css" rel="stylesheet" type="text/css" />
+<link href="css/logikit.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" language="javascript" charset="utf-8" src="javascript/jquery.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="menu.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="scripts/shCore.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="scripts/shBrushJScript.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="scripts/shBrushPhp.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="scripts/shBrushSql.js"></script>
+
+<link type="text/css" rel="stylesheet" href="styles/shCore.css"/>
+<link type="text/css" rel="stylesheet" href="styles/shThemeDefault.css"/>
+<script type="text/javascript">
+	SyntaxHighlighter.config.clipboardSwf = 'scripts/clipboard.swf';
+	SyntaxHighlighter.all();
+</script>
+</head>
+<body>
+	<div id="nav" name="nav" class="nav"><script>
+	displayMenu();</script></div>
+<div id="wrapper">
+<!-- start header -->
+<div id="header">
+	<div id="logo">
+		<h1><a href="#">Logikit::framework</a></h1>
+		
+		<h2>"Cute!"</h2>
+	</div>
+	<div id="menu">
+		<ul>
+			
+			<li class="topLinks"><a href="javascript:;" onclick="$('#nav').toggle('slow');"><b>Table of Contents</b></a></li>
+			<li class="topLinks"><a href="http://framework.logikit.net">Logikit::Framework</a></li>
+			<li class="topLinks"><a href="http://docs.logikit.net">Online Documents</a></li>
+		</ul>
+	</div>
+</div>
+<!-- end header -->
+</div>
+
+<!-- start page -->
+<div id="page">
+	<!-- start content -->
+	<div id="logikitContent">
+		<div class="instructions">
+<h2>Five Minutes Blog Tutorial</h2>
+<p>Here's how you can create a blog using <b>Logikit::Framework</b> in five minutes.</p><br/>
+<h2>Preparing the Database Tables</h2>
+Run the SQL statements below to create the entries table:
+<pre class="brush: sql;">
+CREATE TABLE IF NOT EXISTS `entries` (
+  `id` int(11) unsigned NOT NULL auto_increment,
+  `title` char(100) NOT NULL,
+  `entry` longtext NOT NULL,
+  `date` date NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+</pre>
+</p><br/><br/>
+<h2>Installation Instructions</h2>
+<p><ul>
+	<li>Unzip the package.</li>
+   <li>Upload the LF folders and files to your server.</li>
+   </ul></p><p><b>Optionally</b> , if you want to use a database:
+	<ul>
+		<li>Open the application/config/database.ini file with a text editor and change the database settings in the "development" area.
+		<pre class="brush: php;">[development]
+driver = mysql
+host = localhost
+;port = 3306
+schema = framework
+username = root
+password = mypass
+</pre>where "schema" will be your database name.
+		</li>
+		<li> Open the application/config/config.php file with a text editor and change the line
+		<pre class="brush: php;">define("DB_ENVIRONMENT" , 'none');</pre> to
+		<pre class="brush: php;">define("DB_ENVIRONMENT" , 'development');</pre>
+		</li>
+	</ul>
+	
+</p>
+<p><b>...and you are done!</b></p>
+<h2>Setting the Environment</h2>
+We will start with a new LF installation. Once you'll have an idea on how it works, you may invoke the generator anytime you need it.
+<ul>
+	<li>Open a command line and switch to <b>your LF installation folder</b>.<br/>
+	Assuming your LF installation folder is <span class="uriPath">/var/www/framework/</span>:<br/><br/>
+	<div class="console">dev@logikit:~$ cd /var/www/framework</div>
+	</li>
+	<li>Make sure to have write permissions recursively for <b>application</b> folder:<br/><br/>
+	<div class="console">dev@logikit:/var/www/framework$ chmod -R 777 application</div>
+	</li>
+
+</ul>
+</p><br/><br/>
+<h2>Generating the Code</h2>
+<p><ul>
+	<li>Switch to <b>system</b> folder:<br/><br/>
+	<div class="console">dev@logikit:/var/www/framework$ cd system</div>
+	</li>
+	<li>Run the generator:<br/><br/>
+	<div class="console">dev@logikit:/var/www/framework/system$ ./generate.php</div>
+	</li>
+	</ul>If your webroot is /var/www on your localhost, you can see your application running
+	<div class="uri">http://localhost/framework/</div><br/>
+	Here's how it will look like:<br/><br/>
+	<div style="border:3px solid; width:638px"><img src="images/generator.png" alt="Generator Screenshot"/></div>
+<div class="warning">Took much less than five minutes? Nothing we can do!</div></p><br/><br/>
+
+		</div>
+		
+	</div>
+	<!-- end content -->
+
+	<div style="clear: both;">&nbsp;</div>
+</div>
+<div id="footer">
+<p>&copy;2009 <a href="http://www.logikit.net" title="Logikit">Logikit</a>. Powered by <a href="http://framework.logikit.net" title="Logikit::Framework">Logikit::Framework</a></p>
+</div>
+
+</body>
+</html>
