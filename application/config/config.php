@@ -148,7 +148,7 @@ define("LOAD_DEFAULT_LANGUAGE" , TRUE);
  * 
 */
 
-define("DEFAULT_LANGUAGE" , 'tr');
+define("DEFAULT_LANGUAGE" , 'en');
 
 /**
  *
