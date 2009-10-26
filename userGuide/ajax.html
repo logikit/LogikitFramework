@@ -89,18 +89,31 @@ This function will turn your form into an Ajaxified one and will send the form d
         ajaxValidate('form1');        
         $this->load->view("edit" , $viewData);
     }	
-</pre>Also, generate some applications using the <a href="generator" title="Application Generator">Application Generator</a> and examine the generated code.</p>
+</pre>
+<div class="info">If the form is unvalidated, system will look for a div called <b>unvalidatedItem + Validation</b>.</div>
+<div class="info">If a form field with DOM Id <b>"entry"</b> is not supposed to be empty, but it is, the validation div where the system will show error message will be:
+<b>entryValidation</b>.</div><br/>
+Also, generate some applications using the <a href="generator" title="Application Generator">Application Generator</a> and examine the generated code.</p>
 
 <br/><br/>
 <p>
 <li><h3>loadPaginationScripts($start , $limit , $total , $orderBy = 'id' , $order = 'ASC')</h3></li>
 This function load Javascripts used for AJAX pagination.
+<div class="info">This function requires the DOM Id for the div where paginated data will be displayed to be <b>"paginatedData"</b> by convention.</div>
 </p>
 
 <br/><br/>
 <p>
 <li><h3>generateAjaxPaginator($limit , $recordCount)</h3></li>
-This function will generate a paginator string along with the Javascripts used for AJAX pagination.
+This function will generate the pagination links.
+The difference between a regular paginator is that the links call AJAX functions.
+<pre class="brush: php;">
+$paginationStr = generateAjaxPaginator(2, 5);
+</pre>
+would return
+<pre class="brush: php;">
+&lt;a style="display: none;" id="paginatePrevious" href="javascript:getPrevious();">previous&lt;/a> &lt;span class="selectedPage" id="paginatedPage0">&lt;a href="javascript:getPage('0');">1&lt;/a>&lt;/span> &lt;span id="paginatedPage1">&lt;a href="javascript:getPage('2');">2&lt;/a>&lt;/span>&lt;span id="paginatedPage2">&lt;a href="javascript:getPage('4');">3&lt;/a>&lt;/span>&lt;/span> &lt;a id="paginateNext" href="javascript:getNext();">next&lt;/a>
+</pre>
 </p>
 
 <br/><br/>
