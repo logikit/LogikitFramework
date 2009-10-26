@@ -22,7 +22,7 @@
 	<div id="menu">
 		<ul>
 			<li class="active"><a href="http://framework.logikit.net"><?php echo $this->lang['panel_frameworkTitle'] ; ?></a></li>
-			<li class="active"><a href="http://framework.logikit.net/Documentation"><?php echo $this->lang['panel_documentation'] ; ?></a></li>
+			<li class="active"><a href="http://docs.logikit.net/><?php echo $this->lang['panel_documentation'] ; ?></a></li>
 		</ul>
 	</div>
 </div>
