@@ -38,7 +38,7 @@ class Language
     
     public function __construct()
     {
-        $this->_dirs = array('system/coughphp/generatedModels' , 'system/cache' , 'application/config');
+        $this->_dirs = array('system/generated' , 'system/cache' , 'application/config');
     }
     
     /**

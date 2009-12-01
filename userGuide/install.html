@@ -55,14 +55,16 @@
    <li>Upload the LF folders and files to your server.</li>
    </ul></p><p><b>Optionally</b> , if you want to use a database:
 	<ul>
-		<li>Open the application/config/database.ini file with a text editor and change the database settings in the "development" area.
-		<pre class="brush: php;">[development]
-driver = mysql
-host = localhost
-;port = 3306
-schema = framework
-username = root
-password = mypass
+		<li>Open the application/config/database.php file with a text editor and change the database settings in the "development" key of the settings array.
+		<pre class="brush: php;">
+$settings['development'] = array(
+'driver' => 'mysql' ,
+'host' => 'localhost' , 
+// 'port' => 3306 ,
+'schema' => 'framework' ,
+'username' => 'root' ,
+'password' => 'mypass'
+);
 </pre>where "schema" will be your database name.
 		</li>
 		<li> Open the application/config/config.php file with a text editor and change the line

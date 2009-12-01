@@ -238,6 +238,20 @@ abstract class LogikitForm
         return '<input type="text" id="' . $item['name'] . '" name="' . $item['name'] . '" value="' . $item['value'] . '" '
         . $item['properties'] . ' />';
     }
+
+    /**
+    * Render a password box
+    *
+    * @access	    public
+    * @param        array  item
+    * @return	    string
+    */
+    
+    public static function renderPassword($item)
+    {
+        return '<input type="password" id="' . $item['name'] . '" name="' . $item['name'] . '" value="' . $item['value'] . '" '
+        . $item['properties'] . ' />';
+    }
     
     /**
     * Render a hidden value

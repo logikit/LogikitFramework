@@ -53,6 +53,7 @@ function displayMenu()
                    '<li><a href="creatingLibraries.html">Creating Your Own Libraries</a></li>' +
                    '<li><a href="creatingHelpers.html">Creating Your Own Helpers</a></li>' +
                     '<li><a href="enablingAjax.html">Using AJAX</a></li>' +
+                    '<li><a href="namespace.html">Handling Namespaces</a></li>' +
                    '<li><a href="forms.html">Forms</a></li>' +
                    '<li><a href="validators.html">Validators</a></li>' +
                    '<li><a href="generator.html">Using the Application Generator</a></li>' +
@@ -63,6 +64,9 @@ function displayMenu()
                    '<ul>' +
                     '<li><a href="benchmarking.html">Benchmarking Class</a></li>' +
                     '<li><a href="database.html">Database Class</a></li>' +
+                    '<li><a href="email.html">Email Class</a></li>' +
+                    '<li><a href="ftp.html">FTP Class</a></li>' +
+                    '<li><a href="image.html">Image Manipulation Class</a></li>' +
                     '<li><a href="language.html">Language Class</a></li>' +
                     '<li><a href="netClient.html">Net Client Class</a></li>' +
                     '<li><a href="validation.html">Validation Class</a></li>' +
@@ -73,7 +77,10 @@ function displayMenu()
                    '<li><a href="ajax.html">AJAX Helper</a></li>' +
                    '<li><a href="message.html">Messages Helper</a></li>' +
                    '<li><a href="file.html">File Helper</a></li>' +
-                    '</ul>' +
+                    '</ul><ul>' +
+                    '<span class="navTitle">Additional Resources</span><br/><br/>' +
+                    '<li><a href="http://community.logikit.net">Community Forums</a></li>' +
+                    '<li><a href="http://wiki.logikit.net">Community Wiki</a></li>' +
                    '</div>' +
                    '<div class="dungeon">' +
                    '&nbsp;' +

@@ -28,7 +28,7 @@
 
 // ------------------------------------------------------------------------
 
-
+session_cache_limiter('private_no_expire, must-revalidate');
 session_start();
 /**
  * initialize the system

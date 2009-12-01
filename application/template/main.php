@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <link rel="icon" href="/logikitframework/logikitPublic/favicon.ico" />
-<title>Logikit Framework Test</title>
+<title>Logikit Framework Welcome</title>
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <link href="<?php echo URLROOT; ?>css/default.css.php?urlRoot=<?php echo URLROOT; ?>" rel="stylesheet" type="text/css" />

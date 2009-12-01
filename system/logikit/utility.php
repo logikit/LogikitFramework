@@ -32,7 +32,7 @@
 * Set a namespace
 *
 * @access	    public
-* @param        string  namespace
+* @param            string  namespace
 * @return	    boolean
 */
 
@@ -79,9 +79,13 @@ function getNamespaceValues($namespace)
 * @return	    mixed
 */
 
-function getNamespaceValue($namespace)
+function getNamespaceValue($namespace , $key = NULL)
 {
-    if(isset($_SESSION[$namespace][0])) return $_SESSION[$namespace][0]; else return false;
+    if($key == NULL)
+    {
+        if(isset($_SESSION[$namespace][0])) return $_SESSION[$namespace][0]; else return false;
+    }
+    else return $_SESSION[$namespace][$key];
 }
 
 /**
@@ -90,12 +94,19 @@ function getNamespaceValue($namespace)
 * @access	    public
 * @param            string  namespace
 * @param            string  value
+* @param            string  key
 * @return	    boolean
 */
 
-function addToNamespace($namespace , $value)
+function addToNamespace($namespace , $value , $key = NULL)
 {
-    if(!in_array($value , $_SESSION[$namespace])) $_SESSION[$namespace][] = $value;
+    if($key == NULL)
+    {
+        $_SESSION[$namespace][] = $value;
+    } else
+    {
+        $_SESSION[$namespace][$key] = $value;        
+    }
 
     return TRUE;
 }

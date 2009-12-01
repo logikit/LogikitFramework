@@ -77,10 +77,11 @@ class Loader
     *
     * @access	    public
     * @param        string  libraryToBeLoaded
+    * @param        array   constructParams
     * @return	    object
     */
     
-    public function library($libraryToBeLoaded)
+    public function library($libraryToBeLoaded , $constructParams = NULL)
     {
         if($this->_isLoaded('library' , $libraryToBeLoaded)) triggerError('Library ' . $libraryToBeLoaded . 'already loaded');
         
@@ -93,7 +94,7 @@ class Loader
         {
             $libraryToBeLoaded = basename($libraryToBeLoaded);
         }        
-        $loadedLibrary = new $libraryToBeLoaded();
+        $loadedLibrary = new $libraryToBeLoaded($constructParams);
         
         $LCInstance = getInstance();
         

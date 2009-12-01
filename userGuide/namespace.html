@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <link rel="icon" href="/logikitframework/logikitPublic/favicon.ico" />
-<title>Using LF Libraries : Logikit::Framework User Guide</title>
+<title>Handling Namespaces : Logikit::Framework User Guide</title>
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <link href="css/default.css" rel="stylesheet" type="text/css" />
@@ -50,46 +50,56 @@
 	<div id="logikitContent">
 		<div class="instructions">
 
-<h2>Using LF Libraries</h2>
-
+<h2>Handling Namespaces</h2>
 <p>
-All of the available libraries are located in your <span class="uriPath">system/library</span> folder. In most cases, to use one of these classes involves initializing it within a controller using the following initialization function:
-<pre class="brush: php;">
-$this->load->systemLibrary('className');
-</pre>
-Where <b>className</b> is the name of the class you want to invoke. For example, to load the <b>Net Client</b> class you would do this:
-<pre class="brush: php;">
-$this->load->systemLibrary('NetClient');
-</pre>
-once loaded, you will use it within your controller as:
-<pre class="brush: php;">
-$this->NetClient->getUrl('someUrl');
-</pre>
-</p>
-<br/><br/>
-
-<h2>Creating Your Own Libraries</h2>
-
-<p>Please read the section of the user guide that discusses <a href="creatingLibraries.html" title="Creating Libraries">how to create your own libraries</a>.
+	Using separate namespaces for each event or item is a convenient way to keep the session values proper. Namespace functions are automatically loaded when LF is initialized.
 </p><br/><br/>
-<h2>Using Libraries With Constructor Parameters</h2>
+<h2>Function Reference</h2>
 <p>
-Be our library
-<pre class="brush: php;">
-class Authors()
-{
-	public function __construct($params)
-	{
-		//do something with params array
-	}
-}
+	<ul>
+	<li>
+		<b>setNamespace()</b><br/>
+		Initializes a namespace.
+		<pre class="brush: php;">
+		setNamespace('UserData');
 </pre>
-Code below will call the library with constructor parameters <span class="uriPath">$constructorParams</span>
-<pre class="brush: php;">
-$constructorParams = array ('author' => 'poe' , 'story' => 'The Pit And The Pendulum');
-$this->load->library('Authors' , constructorParams);
+	</li>
+	<li>
+		<b>unsetNamespace()</b><br/>
+		Unsets a namespace.
+		<pre class="brush: php;">
+		unsetNamespace('UserData');
 </pre>
-
+	</li>
+	<li>
+		<b>getNamespaceValues()</b><br/>
+		Returns the values of the given namespace in an array.
+		<pre class="brush: php;">
+		getNamespaceValues('UserData');
+</pre>
+	</li>
+	<li>
+		<b>getNamespaceValue()</b><br/>
+		Returns the value of the given namespace, if only a single value is defined in and the function is used without parameters. If a key (first and only parameter) is given, it will return the value corresponding to the key.
+		<pre class="brush: php;">
+		getNamespaceValue('UserData');
+</pre>
+				<pre class="brush: php;">
+		getNamespaceValue('UserData' , 'email');
+</pre>
+	</li>
+	<li>
+		<b>addToNamespace()</b><br/>
+		Adds a value to a namespace. If third parameter is not given, the value (second parameter) will take the next key.
+		<pre class="brush: php;">
+		addToNamespace('UserData' , 'my@myexample.com' , 'email');
+</pre>
+		<pre class="brush: php;">
+		addToNamespace('emailList' , 'my@myexample.com');
+</pre>
+	</li>
+	</ul>
+	
 </p>
 		</div>
 		

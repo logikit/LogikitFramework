@@ -1,0 +1,5 @@
+- config/database.ini is removed. config/database.php has been introduced instead.
+
+- Added new form component password.
+
+- prepare() method has been renamed to prepareQuery() in LogikitModel due to compatibility issues.

@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rel="icon" href="/logikitframework/logikitPublic/favicon.ico" />
+<title>Email Class : Logikit::Framework User Guide</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="css/default.css" rel="stylesheet" type="text/css" />
+<link href="css/logikit.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" language="javascript" charset="utf-8" src="javascript/jquery.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="menu.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="scripts/shCore.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="scripts/shBrushJScript.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="scripts/shBrushPhp.js"></script>
+
+<link type="text/css" rel="stylesheet" href="styles/shCore.css"/>
+<link type="text/css" rel="stylesheet" href="styles/shThemeDefault.css"/>
+<script type="text/javascript">
+	SyntaxHighlighter.config.clipboardSwf = 'scripts/clipboard.swf';
+	SyntaxHighlighter.all();
+</script>
+</head>
+<body>
+	<div id="nav" name="nav" class="nav"><script>
+	displayMenu();</script></div>
+<div id="wrapper">
+<!-- start header -->
+<div id="header">
+	<div id="logo">
+		<h1><a href="#">Logikit::framework</a></h1>
+		
+		<h2>"Cute!"</h2>
+	</div>
+	<div id="menu">
+		<ul>
+			
+			<li class="topLinks"><a href="javascript:;" onclick="$('#nav').toggle('slow');"><b>Table of Contents</b></a></li>
+			<li class="topLinks"><a href="http://framework.logikit.net">Logikit::Framework</a></li>
+			<li class="topLinks"><a href="http://docs.logikit.net">Online Documents</a></li>
+		</ul>
+	</div>
+</div>
+<!-- end header -->
+</div>
+
+<!-- start page -->
+<div id="page">
+	<!-- start content -->
+	<div id="logikitContent">
+		<div class="instructions">
+<h2>Email Sending Class</h2>
+<p>LF Email sending class provides an easy way to compose emails with multiple attachments and multiple recipients.
+<div class="warning">This is an <b>experimental</b> class introduced with LF 1.0.1 and may be subject to change with future releases.</div></p><br/><br/>
+
+<h2>Loading the Email Class</h2>
+<p><pre class="brush: php;">$this->load->systemLibrary('Email');</pre>will load the class and the email object will be available within your code.</p>
+<br/><br/><h2>A Quick Example</h2>
+<p>Within your controller:
+	<pre class="brush: php;">
+$this->load->systemLibrary('Email');
+$this->Email->from('me@myserver.com');
+$this->Email->to('recipient@remoteserver.com');
+$this->Email->subject('Test mail');
+$this->Email->message('This is my test message');
+$this->Email->send();</pre>
+	will send an email to <b>recipient@remoteserver.com</b> from <b>me@myserver.com</b> with the subject <b>Test mail</b> and with the content <b>This is my test message</b>.
+</p><br/><br/>
+<h2>Function Reference</h2>
+<p><ul><li><b>$this->Email->from()</b><br/>
+Sets the email address and name of the person sending the email:
+	<pre class="brush: php;">
+		$this->Email->from('me@mymail.com');
+</pre></li>
+<li><b>$this->Email->replyTo()</b><br/>
+Sets the reply-to address. If the information is not provided the information in the "from" function is used. Example:
+	<pre class="brush: php;">
+		$this->Email->replyTo('you@yourmail.com');
+</pre></li>
+<li><b>$this->Email->to()</b><br/>
+Sets the email address(s) of the recipient(s). Can be a single email, or an array:
+	<pre class="brush: php;">
+		$this->Email->to('you@yourmail.com');
+</pre>
+<pre class="brush: php;">
+$list = array('one@yourmail.com' , 'two@yourmail.com' , 'three@yourmail.com');
+$this->Email->to($list);
+</pre></li>
+<li><b>$this->Email->cc()</b><br/>
+Sets the CC email address(s). Just like the "to", can be a single email or an array.
+</li>
+<li><b>$this->Email->bcc()</b><br/>
+Sets the BCC email address(s). Just like the "to", can be a single email or an array.
+</li>
+<li><b>$this->Email->subject()</b><br/>
+Sets the email subject.
+<pre class="brush: php;">
+$this->Email->subject('This is my subject');
+</pre>
+</li>
+<li><b>$this->Email->message()</b><br/>
+Sets the email message body:
+<pre class="brush: php;">
+$this->Email->message('This is my message');
+</pre>
+</li>
+<li><b>$this->Email->send()</b><br/>
+Email sending function:
+<pre class="brush: php;">
+$this->Email->send();
+</pre>sends your email.
+</li>
+<li><b>$this->Email->attach()</b><br/>
+Enables you to send an attachment. Put the file path/name in the first parameter. <div class="info">Use a file path, not a URL. For multiple attachments use the function multiple times.</div> For example:
+<pre class="brush: php;">
+$this->Email->attach('/var/www/test/test.jpg');
+$this->Email->attach('/var/www/test/test.odt');
+$this->Email->attach('/var/www/test/test.pdf');
+</pre>
+</li>
+</ul>
+</p>
+		</div>
+		
+	</div>
+	<!-- end content -->
+
+	<div style="clear: both;">&nbsp;</div>
+</div>
+<div id="footer">
+<p>&copy;2009 <a href="http://www.logikit.net" title="Logikit">Logikit</a>. Powered by <a href="http://framework.logikit.net" title="Logikit::Framework">Logikit::Framework</a></p>
+</div>
+
+</body>
+</html>

@@ -79,7 +79,7 @@ $defaultTemplate = 'main';
  * define("DB_ENVIRONMENT" , 'production'); // use "production" DSN
 */
 
-define("DB_ENVIRONMENT" , 'none');
+define("DB_ENVIRONMENT" , 'development');
 
 
 /**

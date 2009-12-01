@@ -39,14 +39,14 @@ abstract class LogikitModel extends PDO
 
 	public function __construct()
 	{
-	    if (!$settings = parse_ini_file(APPLICATIONPATH . 'config/database.ini' , TRUE)) throw new exception('Unable to open ' . $file . '.');
-	   
-	    $dsn = $settings[DB_ENVIRONMENT]['driver'] .
-	    ':host=' . $settings[DB_ENVIRONMENT]['host'] .
-	    ((!empty($settings[DB_ENVIRONMENT]['port'])) ? (';port=' . $settings[DB_ENVIRONMENT]['port']) : '') .
-	    ';dbname=' . $settings[DB_ENVIRONMENT]['schema'];
-	   
-	    parent::__construct($dsn , $settings[DB_ENVIRONMENT]['username'] , $settings[DB_ENVIRONMENT]['password']);
+		require APPLICATIONPATH . 'config/database2.php';
+		   
+		$dsn = $settings[DB_ENVIRONMENT]['driver'] .
+		':host=' . $settings[DB_ENVIRONMENT]['host'] .
+		((!empty($settings[DB_ENVIRONMENT]['port'])) ? (';port=' . $settings[DB_ENVIRONMENT]['port']) : '') .
+		';dbname=' . $settings[DB_ENVIRONMENT]['schema'];
+		   
+		parent::__construct($dsn , $settings[DB_ENVIRONMENT]['username'] , $settings[DB_ENVIRONMENT]['password']);
 	}
 
 	/**
@@ -57,7 +57,7 @@ abstract class LogikitModel extends PDO
 	* @return	mixed
 	*/
     
-	public function prepare()
+	public function prepareQuery()
 	{
 		$args = func_get_args();
 		$rawSql = array_shift($args);

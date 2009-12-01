@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rel="icon" href="/logikitframework/logikitPublic/favicon.ico" />
+<title>Image Manipulation Class : Logikit::Framework User Guide</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="css/default.css" rel="stylesheet" type="text/css" />
+<link href="css/logikit.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" language="javascript" charset="utf-8" src="javascript/jquery.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="menu.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="scripts/shCore.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="scripts/shBrushJScript.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="scripts/shBrushPhp.js"></script>
+
+<link type="text/css" rel="stylesheet" href="styles/shCore.css"/>
+<link type="text/css" rel="stylesheet" href="styles/shThemeDefault.css"/>
+<script type="text/javascript">
+	SyntaxHighlighter.config.clipboardSwf = 'scripts/clipboard.swf';
+	SyntaxHighlighter.all();
+</script>
+</head>
+<body>
+	<div id="nav" name="nav" class="nav"><script>
+	displayMenu();</script></div>
+<div id="wrapper">
+<!-- start header -->
+<div id="header">
+	<div id="logo">
+		<h1><a href="#">Logikit::framework</a></h1>
+		
+		<h2>"Cute!"</h2>
+	</div>
+	<div id="menu">
+		<ul>
+			
+			<li class="topLinks"><a href="javascript:;" onclick="$('#nav').toggle('slow');"><b>Table of Contents</b></a></li>
+			<li class="topLinks"><a href="http://framework.logikit.net">Logikit::Framework</a></li>
+			<li class="topLinks"><a href="http://docs.logikit.net">Online Documents</a></li>
+		</ul>
+	</div>
+</div>
+<!-- end header -->
+</div>
+
+<!-- start page -->
+<div id="page">
+	<!-- start content -->
+	<div id="logikitContent">
+		<div class="instructions">
+<h2>Image Manipulation Class</h2>
+<p>Using image manipulation class, you can do the following actions:
+<ul>
+	<li>Image Resizing</li>
+	<li>Thumbnail Creation</li>
+	<li>Image Cropping</li>
+	<li>Image Rotating</li>
+	<li>Image Watermarking</li>
+</ul></p><br/><br/>
+
+<h2>Loading the Image Class</h2>
+<p><pre class="brush: php;">$this->load->systemLibrary('Image');</pre>will load the class and the image object will be available within your code.</p>
+<br/><br/><h2>Loading the Image</h2>
+<p>Within your controller:
+	<pre class="brush: php;">
+        $this->load->systemLibrary('Image');
+        $this->Image->loadImage('/var/www/test/EdgarPoe.jpg');		
+	</pre>
+	will load the image (EdgarPoe.jpg in our example) to be manipulated.
+</p><br/><br/>
+<h2>Saving the Output</h2>
+<p>Within your controller:
+	<pre class="brush: php;">
+	$this->Image->save('/var/www/test/EdgarPoeThumb.jpg');		
+	</pre>
+	will save the manipulated image.
+</p><br/><br/>
+<h2>Thumbnail Creation</h2>
+<p>  
+<pre class="brush: php;">
+$this->Image->resize(100 , 50);
+</pre>will create a thumbnail with width = 100px and height = 50px<br/>
+<pre class="brush: php;">
+$this->Image->resize(100 , NULL);
+</pre>will create a thumbnail with width = 100px and height proportional to the width of the original image.
+If our original width was 200 x 80, the new height will be 40.
+<pre class="brush: php;">
+$this->Image->resize(NULL , 100);
+</pre>will create a thumbnail width height = 100px and width proportional to the height of the original image.
+If our original height was 80 x 200, the new width will be 40.
+</p>
+<br/><br/>
+<h2>Image Cropping</h2>
+<p>  
+<pre class="brush: php;">
+$this->Image->crop(40 , 50);
+</pre>will crop the image 40 pixels from X axis and 50 pixels from Y axis.
+</p>
+<br/><br/>
+<h2>Image Rotating</h2>
+<p>  
+<pre class="brush: php;">
+$this->Image->rotate(90);
+</pre>will rotate the image 90 degrees counter-clockwise.
+</p>
+<br/><br/>
+<h2>Image Watermarking</h2>
+<p>Be our image to be watermarked <span class="uriPath">/var/www/testImage.jpg</span> and our watermark image <span class="uriPath">/var/www/watermark.png</span>
+<pre class="brush: php;">
+$this->Image->setWatermarkImage('/var/www/watermark.png');
+$this->Image->watermark();
+</pre>will merge our watermark image at the bottom-right corner of the image to be watermarked, <span class="uriPath">/var/www/testImage.jpg</span>.
+</p>
+<br/><br/>
+<h2>Complete Image Manipulation Example</h2>
+<p>We want to open <span class="uriPath">/var/www/testImage.jpg</span> , watermark it using <span class="uriPath">/var/www/watermark.png</span> and save it as <span class="uriPath">/var/www/testWatermark.jpg</span>. Our complete cotroller function would be:
+<pre class="brush: php;">
+    public function watermark()
+    {
+        $this->load->systemLibrary('Image');
+        $this->Image->loadImage('/var/www/testImage.jpg');
+        $this->Image->setWatermarkImage('/var/www/watermark.png');
+        $this->Image->watermark();
+        $this->Image->save('/var/www/testWatermark.jpg');
+    }
+</pre>
+</p>
+		</div>
+		
+	</div>
+	<!-- end content -->
+
+	<div style="clear: both;">&nbsp;</div>
+</div>
+<div id="footer">
+<p>&copy;2009 <a href="http://www.logikit.net" title="Logikit">Logikit</a>. Powered by <a href="http://framework.logikit.net" title="Logikit::Framework">Logikit::Framework</a></p>
+</div>
+
+</body>
+</html>

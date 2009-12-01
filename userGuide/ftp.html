@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rel="icon" href="/logikitframework/logikitPublic/favicon.ico" />
+<title>FTP Class : Logikit::Framework User Guide</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="css/default.css" rel="stylesheet" type="text/css" />
+<link href="css/logikit.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" language="javascript" charset="utf-8" src="javascript/jquery.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="menu.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="scripts/shCore.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="scripts/shBrushJScript.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="scripts/shBrushPhp.js"></script>
+
+<link type="text/css" rel="stylesheet" href="styles/shCore.css"/>
+<link type="text/css" rel="stylesheet" href="styles/shThemeDefault.css"/>
+<script type="text/javascript">
+	SyntaxHighlighter.config.clipboardSwf = 'scripts/clipboard.swf';
+	SyntaxHighlighter.all();
+</script>
+</head>
+<body>
+	<div id="nav" name="nav" class="nav"><script>
+	displayMenu();</script></div>
+<div id="wrapper">
+<!-- start header -->
+<div id="header">
+	<div id="logo">
+		<h1><a href="#">Logikit::framework</a></h1>
+		
+		<h2>"Cute!"</h2>
+	</div>
+	<div id="menu">
+		<ul>
+			
+			<li class="topLinks"><a href="javascript:;" onclick="$('#nav').toggle('slow');"><b>Table of Contents</b></a></li>
+			<li class="topLinks"><a href="http://framework.logikit.net">Logikit::Framework</a></li>
+			<li class="topLinks"><a href="http://docs.logikit.net">Online Documents</a></li>
+		</ul>
+	</div>
+</div>
+<!-- end header -->
+</div>
+
+<!-- start page -->
+<div id="page">
+	<!-- start content -->
+	<div id="logikitContent">
+		<div class="instructions">
+
+<h2>Loading the FTP Class</h2>
+<p><pre class="brush: php;">$this->load->systemLibrary('Ftp');</pre>will load the class and the ftp object will be available within your code.</p>
+<div class="warning">This is an <b>experimental</b> class introduced with LF 1.0.1 and may be subject to change with future releases.</div></p><br/><br/>
+
+
+<h2>A Quick Example</h2>
+Within your controller:
+<p><pre class="brush: php;">
+        $this->load->systemLibrary('Ftp');
+        $this->Ftp->connect('myhost.com' , 'myuser' , 'mypass');
+        $this->Ftp->mirrorUp('/var/www/test' , '/public_html');
+        $this->Ftp->close();
+
+</pre>
+	uploads everything recursively, under local <b>/var/www/test</b> folder to <b>/public_html</b> folder of the remote host (<b>myhost.com</b> in our example).
+If remote respective folders do not exist, the library will attempt to create them.</p>
+
+</p><br/><br/>
+<h2>Function Reference</h2>
+<p><ul><li><b>$this->Ftp->settings()</b><br/>
+Alter the connection settings:
+	<pre class="brush: php;">
+$settings = array();
+$settings['user'] = 'myuser';
+$settings['password'] = 'mypassword';
+$settings['host'] = 'myhost';
+$settings['port'] = 2525;
+$this->Ftp->settings($settings);
+$this->Ftp->connect();
+</pre>
+</li>
+
+<li><b>$this->Ftp->setPort()</b><br/>
+Sets the port for a connection:
+	<pre class="brush: php;">
+$this->Ftp->setPort(2532);
+</pre>
+<div class="info">Port setting defaults to <b>21</b> (default FTP port).</div>
+</li>
+
+<li><b>$this->Ftp->connect()</b><br/>
+Establish an ftp connection:
+	<pre class="brush: php;">
+$this->Ftp->connect('myhost' , 'username' , 'pass');
+</pre>
+This method can be used both combined with <b>settings()</b> function (in this case it is used without parameters) or by itself, passing the parameters directly to the function.
+</li>
+
+<li><b>$this->Ftp->listFiles()</b><br/>
+Returns the list of files in a given folder, as an array:
+	<pre class="brush: php;">
+$files = $this->Ftp->listFiles('/public_html');
+</pre>
+</li>
+
+<li><b>$this->Ftp->move()</b><br/>
+Moves or renames a remote file:
+	<pre class="brush: php;">
+$files = $this->Ftp->move('/public_html/oldFile.html' , '/public_html/newFile.html');
+</pre>
+</li>
+
+<li><b>$this->Ftp->deleteFile()</b><br/>
+Deletes a remote file:
+	<pre class="brush: php;">
+$files = $this->Ftp->deleteFile('/public_html/file.html');
+</pre>
+</li>
+
+<li><b>$this->Ftp->deleteDirectory()</b><br/>
+Deletes all files in a directory recursively:
+	<pre class="brush: php;">
+$files = $this->Ftp->deleteDirectory('/public_html');
+</pre>
+	<div class="error">
+		Pay extreme attention using this function as it will remove everything under given folder, including the sub-folders and their contents.
+	</div>
+	     
+</li>
+
+<li><b>$this->Ftp->download()</b><br/>
+Downloads a file from the remote host and saves it with the given name. First parameter is local path:
+	<pre class="brush: php;">
+$files = $this->Ftp->download('/var/www/downloaded.html' , '/public_html/file.html');
+</pre>
+</li>
+
+<li><b>$this->Ftp->upload()</b><br/>
+Uploads a file from the local host. First parameter is local path:
+	<pre class="brush: php;">
+$files = $this->Ftp->uploaded('/var/www/file.html' , '/public_html/uploaded.html');
+</pre>
+</li>
+
+</ul>
+</p>
+		</div>
+		
+	</div>
+	<!-- end content -->
+
+	<div style="clear: both;">&nbsp;</div>
+</div>
+<div id="footer">
+<p>&copy;2009 <a href="http://www.logikit.net" title="Logikit">Logikit</a>. Powered by <a href="http://framework.logikit.net" title="Logikit::Framework">Logikit::Framework</a></p>
+</div>
+
+</body>
+</html>
